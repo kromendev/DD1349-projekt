@@ -4,4 +4,4 @@ The idea here is a game where you fight monsters by typing words. Imagine a mons
 
 ### Idea 2: Music player
 
-If you use spotify and have ever tried for example downloading a remix from youtube and tried to get it on spotify so you could play it through there, you would know that this process is not very user friendly on spotify. I had to search up a tutorial to do it a few years ago and I might need to look it up again since I forgot and I remember several steps being involved. We want to make a music player with a simple user friendly design that lets you add music files and play it through the app. Then ofcourse add features like shuffle and creating playlists.
+If you use spotify and have ever tried for example downloading a remix from youtube and tried to get it on spotify so you could play it through there, you would know that this process is not very user friendly. We want to make a music player with a simple user friendly design that lets you add music files and play it through the app. Then ofcourse add features like shuffle and creating playlists.
