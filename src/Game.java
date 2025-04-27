@@ -16,8 +16,12 @@ public class Game {
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
 
+        window.pack(); // sets window to preferred size
+
         window.setLocationRelativeTo(null); // window pops up in the center of screen
         window.setVisible(true);
+
+        gamePanel.startGameThread();
     }
     
 }
