@@ -13,6 +13,9 @@ public class Game {
         window.setResizable(false);
         window.setTitle("TYPING GAME"); // sets window title
 
+        GamePanel gamePanel = new GamePanel();
+        window.add(gamePanel);
+
         window.setLocationRelativeTo(null); // window pops up in the center of screen
         window.setVisible(true);
     }
