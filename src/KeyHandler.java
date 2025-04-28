@@ -1,4 +1,4 @@
-import java.awt.RenderingHints.Key;
+// import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 /**
@@ -12,10 +12,18 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, rightPressed, leftPressed;
+    public char c, sc; // sc is a special character like control or escape
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // nothing, for now...
+        char c = e.getKeyChar();
+
+        // Check if c is a unicode character
+        if (Character.isDefined(c)) {
+            this.c = c;
+        } else {
+            this.sc = c;
+        }
     }
 
     @Override

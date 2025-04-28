@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
-    Monster monster = new Monster(this, keyH);
+    Monster monster = new Monster(this, keyH, "Banana");
 
     // Sets default player position and speed
     int playerX = 100;
@@ -107,7 +107,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D)g; // setting g as a 2d graphic g2
         
-        monster.draw(g2);
+        if (monster.alive) {
+            monster.draw(g2);
+        }
         player.draw(g2);
 
         g2.dispose();

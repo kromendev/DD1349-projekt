@@ -8,15 +8,18 @@ import java.awt.Graphics2D;
  * @version 2025-04-28
  */
 public class Monster extends Entity{
-    // word that need to typed to kill monster
+    // word that needs to typed to kill monster
     String word;
+    int i = 0;
+    boolean alive = true;
     
     GamePanel gp;
     KeyHandler keyH;
 
-    public Monster(GamePanel gp, KeyHandler keyH) {
+    public Monster(GamePanel gp, KeyHandler keyH, String word) {
         this.gp = gp;
         this.keyH = keyH;
+        this.word = word;
 
         setDefaultValues();
     }
@@ -28,6 +31,13 @@ public class Monster extends Entity{
     }
 
     public void update() {
+        char[] chars = word.toCharArray();
+        if (this.i < chars.length && chars[this.i] == keyH.c) {
+            this.i++;
+        }
+        else if (this.i >= chars.length) {
+            alive = false;
+        }
         x -= speed;
     }
 
