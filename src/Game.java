@@ -1,6 +1,9 @@
 import javax.swing.JFrame;
 /**
  * Explain videogame here..
+ * 
+ * @author Husein Hassan
+ * @version 2025-04-28
  */
 public class Game {
 

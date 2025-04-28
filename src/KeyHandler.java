@@ -1,7 +1,14 @@
 import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+/**
+ * This class handles keystrokes, checks if keys
+ * are pressed or not so the game can read inputs and manipulate
+ * the draw according to the inputs.
+ * 
+ * @author Husein Hassan
+ * @version 2025-04-28
+ */
 public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, rightPressed, leftPressed;

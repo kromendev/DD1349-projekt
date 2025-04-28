@@ -5,7 +5,10 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 /**
- * Explain class..
+ * This class draws and refreshes the gamepanel.
+ * 
+ * @author Husein Hassan
+ * @version 2025-04-28
  */
 public class GamePanel extends JPanel implements Runnable {
     
@@ -13,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16; // 16x16 Tile, so the map, characters and everything will be built through these 16x16 tiles.
     final int scale = 3; // scale up tiles to look normal on bigger resolutions.
 
-    final int tileSize = originalTileSize * scale; // 48x48 is the true tilesize.
+    public final int tileSize = originalTileSize * scale; // 48x48 is the true tilesize.
     // create 4:3 game window
     final int maxScreenCol = 16; // max screen size column
     final int maxScreenRow = 12; // max screen size row
@@ -22,6 +25,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
+    Player player = new Player(this, keyH);
+    Monster monster = new Monster(this, keyH);
 
     // Sets default player position and speed
     int playerX = 100;
@@ -65,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             // draw the screen with the updated information
             repaint(); // inbuilt method that calls paintcomponent
-
+            
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime = remainingTime / 1000000; // convert to milliseconds for the sleep method
@@ -87,18 +92,8 @@ public class GamePanel extends JPanel implements Runnable {
      * Updates game information
      */
     public void update() {
-        if (keyH.upPressed == true) {
-            playerY -= playerSpeed;
-        } 
-        else if (keyH.leftPressed == true) {
-            playerX -= playerSpeed;
-        } 
-        else if (keyH.downPressed == true) {
-            playerY += playerSpeed;
-        } 
-        else if (keyH.rightPressed == true) {
-            playerX += playerSpeed;
-        }
+        monster.update();
+        player.update();
     }
 
     /**
@@ -112,9 +107,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D)g; // setting g as a 2d graphic g2
         
-        // creates a white square
-        g2.setColor(Color.WHITE);
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
+        monster.draw(g2);
+        player.draw(g2);
+
         g2.dispose();
     }
 }
