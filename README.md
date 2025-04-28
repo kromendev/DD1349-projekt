@@ -10,6 +10,6 @@ Game is still in development so there is no set way to test the game other than 
 
 ### Extra information
 
-The game is being created using java and following is some information regarding what packages we've decided to use and such.
+The game is being created using java, following is some information regarding what packages we've decided to use and such.
 
 We use the JFrame class to create a window and then the JPanel class from the same javax.swing package to create the game panel. We use the KeyListener interface to read user inputs; we implemented this interface in our KeyHandler class where we handle different inputs and keep track of their states. Our GamePanel class also implements Runnable in java so we can run our program and create our game loop.
