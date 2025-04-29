@@ -1,5 +1,8 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 /**
  * This class creates monsters.
@@ -22,6 +25,16 @@ public class Monster extends Entity{
         this.word = word;
 
         setDefaultValues();
+        getMonsterImage();
+    }
+
+    public void getMonsterImage() {
+        try {
+            left1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingMonsterLeft1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingMonsterLeft2.png"));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setDefaultValues() {
@@ -39,10 +52,28 @@ public class Monster extends Entity{
             alive = false;
         }
         x -= speed;
+
+        spriteCounter++;
+        if (spriteCounter > 15) {
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            }
+            else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
     }
 
     public void draw(Graphics2D g2) {
-        g2.setColor(Color.RED);
-        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+        BufferedImage image = null;
+
+        if (spriteNum == 1) {
+            image = left1;
+        } else if (spriteNum == 2) {
+            image = left2;
+        }
+
+        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }
 }

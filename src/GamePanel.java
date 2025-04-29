@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // set size
-        this.setBackground(Color.BLACK); // might be unnecessary, sets background color
+        this.setBackground(Color.BLACK); // sets background color
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true); // makes panel able to capture inputs
@@ -61,29 +61,38 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        double drawInterval = 100000000 / fps; // 0.016666
-        double nextDrawTime = System.nanoTime() + drawInterval;
+        double drawInterval = 1000000000 / fps; // 0.016666s
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        long timer = 0;
+        int drawCount = 0;
 
         while(gameThread != null) {
-            // update infromation
-            update();
 
-            // draw the screen with the updated information
-            repaint(); // inbuilt method that calls paintcomponent
-            
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime / 1000000; // convert to milliseconds for the sleep method
+            currentTime = System.nanoTime();
 
-                if (remainingTime < 0) {
-                    remainingTime = 0;
-                }
+            delta += (currentTime - lastTime) / drawInterval;
 
-                Thread.sleep((long) remainingTime);
+            timer += currentTime - lastTime;
 
-                nextDrawTime += drawInterval;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            lastTime = currentTime;
+
+            if (delta > 1) {
+                // update infromation
+                update();
+
+                // draw the screen with the updated information
+                repaint(); // inbuilt method that calls paintcomponent
+
+                delta--;
+                drawCount++;
+            }
+
+            if (timer >= 1000000000) {
+                System.out.println("FPS: " + drawCount);
+                drawCount = 0;
+                timer = 0;
             }
         }
     }
