@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
  */
 public class KeyHandler implements KeyListener {
 
-    public boolean upPressed, downPressed, rightPressed, leftPressed;
+    public boolean upPressed, downPressed, rightPressed, leftPressed, anythingTyped;
     public char c, sc; // sc is a special character like control or escape
 
     @Override
@@ -24,6 +24,8 @@ public class KeyHandler implements KeyListener {
         } else {
             this.sc = c;
         }
+
+        anythingTyped = true;
     }
 
     @Override

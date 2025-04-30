@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * This class creates the player
+ * This class creates the player.
  * 
  * @author Husein Hassan
  * @version 2025-04-28
@@ -14,7 +14,15 @@ public class Player extends Entity{
 
     GamePanel gp;
     KeyHandler keyH;
+    // helper field
+    private boolean aniCycle = false; // checks if an animation cycle has been triggered
 
+    /**
+     * Creates the player.
+     * 
+     * @param gp gamepanel that the player is associated with.
+     * @param keyH keyhandler that the player is associated with.
+     */
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
@@ -23,38 +31,74 @@ public class Player extends Entity{
         getPlayerImage();
     }
 
+    /**
+     * Getter for the player sprites.
+     * 
+     * @throws IOException if program can't find the image files
+     */
     public void getPlayerImage() {
         try {
-            right1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight1V1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight2V1.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight2.png"));
+            right3 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight3.png"));
         } catch(IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Sets the players default values
+     */
     public void setDefaultValues() {
         x = 100;
         y = 400;
         speed = 4;
     }
 
+    /**
+     * Updates the state of the player
+     */
     public void update() {
-        /*if (keyH.upPressed == true) {
-            y -= speed;
-        } 
-        else if (keyH.leftPressed == true) {
-            x -= speed;
-        } 
-        else if (keyH.downPressed == true) {
-            y += speed;
-        } 
-        else if (keyH.rightPressed == true) {
-            x += speed;
-        }*/
+        if (keyH.anythingTyped && !aniCycle) {
+            aniCycle = true;
+            spriteNum = 2;
+            spriteCounter = 0;
+        }
+
+        if (aniCycle) {
+            spriteCounter++;
+
+            if (spriteCounter > 10) {
+                if (spriteNum == 2) {
+                    spriteNum = 3;
+                } else if (spriteNum == 3) {
+                    spriteNum = 2;
+                    aniCycle = false;
+                    keyH.anythingTyped = false;
+                }
+                spriteCounter = 0;
+            }
+        } else {
+            spriteNum = 1;
+        }
     }
 
+    /**
+     * Draws the player
+     * 
+     * @param g2 graphic to draw
+     */
     public void draw(Graphics2D g2) {
-        BufferedImage image = right1;
+        BufferedImage image = null;
+
+        if (spriteNum == 1) {
+            image = right1;
+        } else if (spriteNum == 2) {
+            image = right2;
+        }
+        else if (spriteNum == 3) {
+            image = right3;
+        }
 
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }

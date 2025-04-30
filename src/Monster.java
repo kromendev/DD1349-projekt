@@ -19,6 +19,13 @@ public class Monster extends Entity{
     GamePanel gp;
     KeyHandler keyH;
 
+    /**
+     * Creates a monster
+     * 
+     * @param gp gamepanel that the monster is associated with.
+     * @param keyH keyhandler that the monster is associated with.
+     * @param word word that player needs to type to eliminate the monster.
+     */
     public Monster(GamePanel gp, KeyHandler keyH, String word) {
         this.gp = gp;
         this.keyH = keyH;
@@ -27,7 +34,11 @@ public class Monster extends Entity{
         setDefaultValues();
         getMonsterImage();
     }
-
+    /**
+     * Getter for monster sprites
+     * 
+     * @throws IOException if program can't find the image files
+     */
     public void getMonsterImage() {
         try {
             left1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingMonsterLeft1.png"));
@@ -37,12 +48,18 @@ public class Monster extends Entity{
         }
     }
 
+    /**
+     * Sets default position and speed for Monster
+     */
     public void setDefaultValues() {
         x = 500;
         y = 400;
         speed = 1;
     }
 
+    /**
+     * Updates state of a monster object
+     */
     public void update() {
         char[] chars = word.toCharArray();
         if (this.i < chars.length && chars[this.i] == keyH.c) {
@@ -65,6 +82,11 @@ public class Monster extends Entity{
         }
     }
 
+    /**
+     * Draws monster
+     * 
+     * @param g2 graphic to draw
+     */
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
