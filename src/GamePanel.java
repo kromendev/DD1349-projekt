@@ -18,20 +18,16 @@ public class GamePanel extends JPanel implements Runnable {
 
     public final int tileSize = originalTileSize * scale; // 48x48 is the true tilesize.
     // create 4:3 game window
-    final int maxScreenCol = 16; // max screen size column
-    final int maxScreenRow = 12; // max screen size row
-    final int screenWidth = tileSize * maxScreenCol; // 768 px
-    final int screenHeight = tileSize * maxScreenRow; // 576 px
+    public final int maxScreenCol = 16; // max screen size column
+    public final int maxScreenRow = 12; // max screen size row
+    public final int screenWidth = tileSize * maxScreenCol; // 768 px
+    public final int screenHeight = tileSize * maxScreenRow; // 576 px
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
     Monster monster = new Monster(this, keyH, "Banana");
-
-    // Sets default player position and speed
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
+    TileManager tm = new TileManager(this);
 
     // FPS
     final int fps = 60;
@@ -115,7 +111,8 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g; // setting g as a 2d graphic g2
-        
+        tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
+
         if (monster.alive) {
             monster.draw(g2);
         }

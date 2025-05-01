@@ -53,7 +53,7 @@ public class Monster extends Entity{
      */
     public void setDefaultValues() {
         x = 500;
-        y = 400;
+        y = 384;
         speed = 1;
     }
 
