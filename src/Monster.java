@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -95,7 +96,21 @@ public class Monster extends Entity{
         } else if (spriteNum == 2) {
             image = left2;
         }
-
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+
+        String typedPart = word.substring(0, i);
+        String untypedPart = word.substring(i);
+
+        int totalWidth = g2.getFontMetrics().stringWidth(word);
+        int wordStartX = x + (gp.tileSize - totalWidth) / 2;
+        int wordY = y - 10;
+
+        g2.setColor(Color.WHITE);
+        g2.drawString(untypedPart, wordStartX + g2.getFontMetrics().stringWidth(typedPart), wordY);
+
+        if (this.i > 0) {
+            g2.setColor(Color.GREEN);
+            g2.drawString(typedPart, wordStartX, wordY);
+        }
     }
 }

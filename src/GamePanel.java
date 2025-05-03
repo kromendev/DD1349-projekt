@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -26,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
-    Monster monster = new Monster(this, keyH, "Banana");
+    Monster monster = new Monster(this, keyH, "ooooooooooooooooooooooooooooooooooooooooooooooo o");
     TileManager tm = new TileManager(this);
 
     // FPS
@@ -111,6 +112,9 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g; // setting g as a 2d graphic g2
+        g2.setFont(new Font("Arial", Font.BOLD, 20));
+        
+        // draws map
         tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
 
         if (monster.alive) {
