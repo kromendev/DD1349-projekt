@@ -105,7 +105,6 @@ public class Monster extends Entity{
         int wordStartX = x + (gp.tileSize - totalWidth) / 2;
         int wordY = y - 10;
 
-        g2.setColor(Color.WHITE);
         g2.drawString(untypedPart, wordStartX + g2.getFontMetrics().stringWidth(typedPart), wordY);
 
         if (this.i > 0) {
