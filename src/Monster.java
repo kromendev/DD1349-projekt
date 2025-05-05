@@ -16,7 +16,6 @@ public class Monster extends Entity{
     // word that needs to typed to kill monster
     String word;
     int i = 0;
-    boolean alive = true;
     
     GamePanel gp;
     KeyHandler keyH;
@@ -39,7 +38,7 @@ public class Monster extends Entity{
         hitbox.x = 18; // x coordinate in upscaled version
         hitbox.y = 12; // y coord
         hitbox.width = 24;
-        hitbox.height = 36;
+        hitbox.height = 35;
 
         setDefaultValues();
         getMonsterImage();
@@ -63,7 +62,7 @@ public class Monster extends Entity{
      */
     public void setDefaultValues() {
         x = 500;
-        y = 383; // raised 1 px to avoid collision with floor tiles
+        y = 384; // raised 1 px to avoid collision with floor tiles
         speed = 1;
         direction = "Left";
     }
@@ -80,24 +79,26 @@ public class Monster extends Entity{
             alive = false;
         }
 
-        // NOTE, should check bounds before checking collision, for monster coming in from outside the map.
-        collisionOn = false;
-        gp.collision.checkTile(this);
-        gp.collision.checkEntity(this, player);
+        if (alive) {
+            // NOTE, should check bounds before checking collision, for monster coming in from outside the map.
+            collisionOn = false;
+            gp.collision.checkTile(this);
+            gp.collision.checkEntity(this, player);
 
-        if (collisionOn == false) {
-            x -= speed;
-        }
+            if (collisionOn == false) {
+                x -= speed;
+            }
 
-        spriteCounter++;
-        if (spriteCounter > 15) {
-            if (spriteNum == 1) {
-                spriteNum = 2;
+            spriteCounter++;
+            if (spriteCounter > 15) {
+                if (spriteNum == 1) {
+                    spriteNum = 2;
+                }
+                else if (spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
             }
-            else if (spriteNum == 2) {
-                spriteNum = 1;
-            }
-            spriteCounter = 0;
         }
     }
 

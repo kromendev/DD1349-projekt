@@ -11,6 +11,7 @@ public class Entity {
     public int x, y;
     public int speed;
     public String direction;
+    public boolean alive = true;
 
     public BufferedImage right1, right2, right3, left1, left2;
 

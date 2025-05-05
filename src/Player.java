@@ -32,7 +32,7 @@ public class Player extends Entity{
         hitbox.x = 3; // x coordinate in upscaled version
         hitbox.y = 12; // y coord
         hitbox.width = 30;
-        hitbox.height = 36;
+        hitbox.height = 35;
 
         setDefaultValues();
         getPlayerImage();
@@ -58,7 +58,7 @@ public class Player extends Entity{
      */
     public void setDefaultValues() {
         x = 100;
-        y = 383;
+        y = 384;
         speed = 4; // not used for player, implement in future versions?
         direction = "Right";
     }
@@ -72,10 +72,6 @@ public class Player extends Entity{
             spriteNum = 2;
             spriteCounter = 0;
         }
-
-        // 2 following lines unnecessary currently.
-        collisionOn = false;
-        gp.collision.checkTile(this);
 
         if (aniCycle) {
             spriteCounter++;

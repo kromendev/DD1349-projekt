@@ -27,7 +27,6 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
-    Monster monster = new Monster(this, keyH, "ooooooooooooooooooooooooooooooooooooooooooooooo o", player);
     TileManager tm = new TileManager(this);
     public Collision collision = new Collision(this);
 
@@ -100,6 +99,13 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public void update() {
         monster.update();
+
+        player.collisionOn = false;
+        this.collision.checkEntity(player, monster); // this method is inefficient, needs a call for every monster
+
+        if (player.collisionOn) {
+            // restart game loop
+        }
         player.update();
     }
 
