@@ -29,7 +29,9 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     Player player = new Player(this, keyH);
     Monster monster = new Monster(this, keyH, "AaBbCcEeFf Oo");
+
     TileManager tm = new TileManager(this);
+    public Collision collision = new Collision(this);
 
     // Font
     private Font gameFont;
@@ -59,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
      * Starts the game thread, calls run() automatically.
      */
     public void startGameThread() {
-        gameThread = new Thread(this); // passing gamepanel class into thready constructor.
+        gameThread = new Thread(this); // passing gamepanel class into threads constructor.
         gameThread.start();
     }
 

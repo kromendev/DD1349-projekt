@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -19,6 +20,7 @@ public class Monster extends Entity{
     
     GamePanel gp;
     KeyHandler keyH;
+    Player player;
 
     /**
      * Creates a monster
@@ -27,10 +29,17 @@ public class Monster extends Entity{
      * @param keyH keyhandler that the monster is associated with.
      * @param word word that player needs to type to eliminate the monster.
      */
-    public Monster(GamePanel gp, KeyHandler keyH, String word) {
+    public Monster(GamePanel gp, KeyHandler keyH, String word, Player player) {
         this.gp = gp;
         this.keyH = keyH;
         this.word = word;
+        this.player = player;
+
+        hitbox = new Rectangle();
+        hitbox.x = 18; // x coordinate in upscaled version
+        hitbox.y = 12; // y coord
+        hitbox.width = 24;
+        hitbox.height = 36;
 
         setDefaultValues();
         getMonsterImage();
@@ -54,8 +63,9 @@ public class Monster extends Entity{
      */
     public void setDefaultValues() {
         x = 500;
-        y = 384;
+        y = 383; // raised 1 px to avoid collision with floor tiles
         speed = 1;
+        direction = "Left";
     }
 
     /**
@@ -69,7 +79,15 @@ public class Monster extends Entity{
         else if (this.i >= chars.length) {
             alive = false;
         }
-        x -= speed;
+
+        // NOTE, should check bounds before checking collision, for monster coming in from outside the map.
+        collisionOn = false;
+        gp.collision.checkTile(this);
+        gp.collision.checkEntity(this, player);
+
+        if (collisionOn == false) {
+            x -= speed;
+        }
 
         spriteCounter++;
         if (spriteCounter > 15) {
