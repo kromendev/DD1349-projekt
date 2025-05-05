@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.File;
 
 import javax.swing.JPanel;
 /**
@@ -27,9 +28,13 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
-    Monster monster = new Monster(this, keyH, "ooooooooooooooooooooooooooooooooooooooooooooooo o", player);
+    Monster monster = new Monster(this, keyH, "AaBbCcEeFf Oo");
+
     TileManager tm = new TileManager(this);
     public Collision collision = new Collision(this);
+
+    // Font
+    private Font gameFont;
 
     // FPS
     final int fps = 60;
@@ -43,6 +48,13 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true); // makes panel able to capture inputs
+
+        // Getting the custom font from the /src folder
+        try {
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/PressStart2P-vaV7.ttf")).deriveFont(20f);
+        } catch (Exception e) {
+            gameFont = new Font("Arial", Font.BOLD, 20); // fallback
+        }
     }
 
     /**
@@ -113,7 +125,8 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g; // setting g as a 2d graphic g2
-        g2.setFont(new Font("Arial", Font.BOLD, 20));
+        g2.setFont(gameFont);
+        g2.setColor(Color.WHITE);
         
         // draws map
         tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
