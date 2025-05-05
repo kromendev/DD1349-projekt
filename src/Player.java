@@ -1,4 +1,5 @@
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -8,7 +9,7 @@ import javax.imageio.ImageIO;
  * This class creates the player.
  * 
  * @author Husein Hassan
- * @version 2025-04-28
+ * @version 2025-05-04
  */
 public class Player extends Entity{
 
@@ -26,6 +27,12 @@ public class Player extends Entity{
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
+
+        hitbox = new Rectangle();
+        hitbox.x = 3; // x coordinate in upscaled version
+        hitbox.y = 12; // y coord
+        hitbox.width = 30;
+        hitbox.height = 36;
 
         setDefaultValues();
         getPlayerImage();
@@ -51,8 +58,9 @@ public class Player extends Entity{
      */
     public void setDefaultValues() {
         x = 100;
-        y = 384;
-        speed = 4;
+        y = 383;
+        speed = 4; // not used for player, implement in future versions?
+        direction = "Right";
     }
 
     /**
@@ -64,6 +72,10 @@ public class Player extends Entity{
             spriteNum = 2;
             spriteCounter = 0;
         }
+
+        // 2 following lines unnecessary currently.
+        collisionOn = false;
+        gp.collision.checkTile(this);
 
         if (aniCycle) {
             spriteCounter++;
