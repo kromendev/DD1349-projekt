@@ -7,9 +7,9 @@ Our project is a word typing videogame. It's a level-based game where you make y
 - Retro rpg animations
 
 ## How to test the game
-1. Clone this repository with your your command-line interface (git clone ...).
-2. Open the project in an IDE that suppors java, ex. IntelliJ.
-3. Go into the 'src' directory (cd DD1349-projekt/src/).
+1. Clone this repository with your command-line interface (git clone ...).
+2. Make sure you have java downloaded on your computer (java -version).
+3. Go to the 'src' directory (cd DD1349-projekt/src/).
 4. Compile the 'Game.java' file (javac Game.java).
 5. Run the game from the command-line interface (java Game.java).
 
