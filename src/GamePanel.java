@@ -113,10 +113,13 @@ public class GamePanel extends JPanel implements Runnable {
         monster.update();
 
         player.collisionOn = false;
-        this.collision.checkEntity(player, monster); // this method is inefficient, needs a call for every monster
+        this.collision.checkEntity(player, monster); // when there are more monsters, create a loop that checks for every monster.
 
         if (player.collisionOn) {
-            // restart game loop
+            // resets the game
+            player.setDefaultValues();
+            monster.setDefaultValues();
+            monster.i = 0;
         }
         player.update();
     }
