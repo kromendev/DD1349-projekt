@@ -72,8 +72,12 @@ public class Monster extends Entity{
      */
     public void update() {
         char[] chars = word.toCharArray();
-        if (this.i < chars.length && chars[this.i] == keyH.c) {
+        char key = keyH.readKey();
+        if (this.i < chars.length && chars[this.i] == key) {
             this.i++;
+        }
+        else if (this.i < chars.length && chars[this.i] != key && key != 0) {
+            this.i = 0;
         }
         else if (this.i >= chars.length) {
             alive = false;

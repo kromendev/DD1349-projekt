@@ -12,11 +12,13 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, rightPressed, leftPressed, anythingTyped;
-    public char c, sc; // sc is a special character like control or escape
+
+    private char lastKeyPressed = 0;
+    private boolean hasNewKey = false;
 
     @Override
     public void keyTyped(KeyEvent e) {
-        char c = e.getKeyChar();
+        /*char c = e.getKeyChar();
 
         // Check if c is a unicode character
         if (Character.isDefined(c)) {
@@ -25,12 +27,19 @@ public class KeyHandler implements KeyListener {
             this.sc = c;
         }
 
-        anythingTyped = true;
+        anythingTyped = true;*/
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int code = e.getKeyCode();
+        char keyChar = e.getKeyChar();
+
+        if (Character.isDefined(keyChar) && !Character.isISOControl(keyChar)) {
+            lastKeyPressed = keyChar;
+            hasNewKey = true;
+        }
+
+        /*int code = e.getKeyCode();
 
         if (code == KeyEvent.VK_W) {
             upPressed = true;
@@ -43,13 +52,13 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
-        }
+        }*/
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int code = e.getKeyCode();
-
+        /*int code = e.getKeyCode();
+        
         if (code == KeyEvent.VK_W) {
             upPressed = false;
         }
@@ -61,7 +70,19 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
+        }*/
+    }
+
+    public char readKey() {
+        if (!hasNewKey) {
+            return 0;
         }
+
+        char key = lastKeyPressed;
+
+        hasNewKey = false;
+
+        return key;
     }
      
 }
