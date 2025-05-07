@@ -6,6 +6,7 @@ public enum GameState {
     PLAY,
     SETTINGS,
     CREDITS,
+    PAUSE,
     QUIT;
 
     private static GameState currentState = MENU;

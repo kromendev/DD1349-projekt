@@ -23,7 +23,7 @@ public class Game {
 
         window.setLocationRelativeTo(null); // window pops up in the center of screen
         window.setVisible(true);
-
+        
         gamePanel.startGameThread();
     }
     

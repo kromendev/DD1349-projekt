@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -80,7 +81,14 @@ public class TileManager {
         int y = 0;
         
         while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
-
+            //Pause button
+            if (GameState.getGameState() == GameState.PLAY) {
+                g2.setColor(Color.BLACK);
+                g2.fillRect(20, 20, 150, 50);
+                g2.setColor(Color.WHITE);
+                g2.drawRect(20, 20, 150, 50);
+                g2.drawString("Pause", 20 + (150 - g2.getFontMetrics().stringWidth("Pause"))/2, 55);
+            }
             int tileNum = mapTileNum[col][row]; 
 
             g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize,  null);
