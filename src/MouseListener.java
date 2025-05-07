@@ -46,7 +46,7 @@ public class MouseListener extends MouseAdapter {
 
         if (GameState.getGameState() == GameState.PLAY) {
             //pause button
-            if (x >= 20 && x <= 150 && y >= 20 && y <= 50) {
+            if (x >= 20 && x <= 170 && y >= 20 && y <= 70) {
                 GameState.setGameState(GameState.PAUSE);
             }
         }

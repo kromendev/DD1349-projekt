@@ -44,6 +44,14 @@ public class Menu {
         g.drawString("Quit", getCenteredX(g, "Quit"), 435);
     }
 
+    void drawPauseButton(Graphics g){
+        g.setColor(Color.BLACK);
+        g.fillRect(20, 20, 150, 50);
+        g.setColor(Color.WHITE);
+        g.drawRect(20, 20, 150, 50);
+        g.drawString("Pause", 20 + (150 - g.getFontMetrics().stringWidth("Pause"))/2, 55);
+    }
+
     void drawPause(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
 

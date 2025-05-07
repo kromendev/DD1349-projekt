@@ -194,6 +194,8 @@ public class GamePanel extends JPanel implements Runnable {
         if (GameState.getGameState() == GameState.PLAY) {
             // draws map
             tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
+
+            menu.drawPauseButton(g2);
             
             if (monster.alive) {
                 monster.draw(g2);
