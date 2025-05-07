@@ -61,6 +61,7 @@ public class Monster extends Entity{
      * Sets default position and speed for Monster
      */
     public void setDefaultValues() {
+        i = 0;
         x = 500;
         y = 384;
         speed = 1;
@@ -71,16 +72,19 @@ public class Monster extends Entity{
      * Updates state of a monster object
      */
     public void update() {
-        char[] chars = word.toCharArray();
-        char key = keyH.readKey();
-        if (this.i < chars.length && chars[this.i] == key) {
-            this.i++;
-        }
-        else if (this.i < chars.length && chars[this.i] != key && key != 0) {
-            this.i = 0;
-        }
-        else if (this.i >= chars.length) {
-            alive = false;
+        if (gp.first[0] == true) {
+            char[] chars = word.toCharArray();
+            char key = keyH.readKey();
+            if (this.i < chars.length && chars[this.i] == key) {
+                this.i++;
+            }
+            else if (this.i < chars.length && chars[this.i] != key && key != 0) {
+                this.i = 0;
+            }
+            else if (this.i >= chars.length) {
+                alive = false;
+                gp.first[0] = false;
+            }
         }
 
         if (alive) {
@@ -121,18 +125,20 @@ public class Monster extends Entity{
         }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 
-        String typedPart = word.substring(0, i);
-        String untypedPart = word.substring(i);
-
-        int totalWidth = g2.getFontMetrics().stringWidth(word);
-        int wordStartX = x + (gp.tileSize - totalWidth) / 2;
-        int wordY = y - 10;
-
-        g2.drawString(untypedPart, wordStartX + g2.getFontMetrics().stringWidth(typedPart), wordY);
-
-        if (this.i > 0) {
-            g2.setColor(Color.GREEN);
-            g2.drawString(typedPart, wordStartX, wordY);
+        if (gp.first[0] == true) {
+            String typedPart = word.substring(0, i);
+            String untypedPart = word.substring(i);
+    
+            int totalWidth = g2.getFontMetrics().stringWidth(word);
+            int wordStartX = x + (gp.tileSize - totalWidth) / 2;
+            int wordY = y - 10;
+    
+            g2.drawString(untypedPart, wordStartX + g2.getFontMetrics().stringWidth(typedPart), wordY);
+    
+            if (this.i > 0) {
+                g2.setColor(Color.GREEN);
+                g2.drawString(typedPart, wordStartX, wordY);
+            }
         }
     }
 }
