@@ -81,6 +81,7 @@ public class TileManager {
         int y = 0;
         
         while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
+            //Pause button
             if (GameState.getGameState() == GameState.PLAY) {
                 g2.setColor(Color.BLACK);
                 g2.fillRect(20, 20, 150, 50);

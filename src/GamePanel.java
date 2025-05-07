@@ -191,7 +191,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (GameState.getGameState() == GameState.MENU) {
             menu.drawMenu(g2);
         } 
-        else if (GameState.getGameState() == GameState.PLAY) {
+        if (GameState.getGameState() == GameState.PLAY) {
             // draws map
             tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
             
@@ -204,6 +204,12 @@ public class GamePanel extends JPanel implements Runnable {
             player.draw(g2);
     
             g2.dispose();
+        } 
+        if (GameState.getGameState() == GameState.PAUSE) {
+            menu.drawPause(g2);
+        }
+        if (GameState.getGameState() == GameState.CREDITS) {
+            menu.drawCredits(g2);
         }
     }
 }
