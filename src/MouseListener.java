@@ -30,7 +30,6 @@ public class MouseListener extends MouseAdapter {
           
             if (x >= center && x <= center + buttonX && y >= 200 && y <= 250) {
                 GameState.setGameState(GameState.PLAY);
-                Game.main(null);
             }
     
             // Credits button
@@ -74,6 +73,17 @@ public class MouseListener extends MouseAdapter {
     
             // Menu button
             if (x >= center && x <= center + buttonX && y >= 400 && y <= 450) {
+                GameState.setGameState(GameState.MENU);
+            }
+        }
+
+        if (GameState.getGameState() == GameState.GAMEOVER) {
+            // Button dimensions from Main menu
+            int center = gp.getWidth() / 2 - 125;
+            int buttonX = 250;
+    
+            // Menu button
+            if (x >= center && x <= center + buttonX && y >= 300 && y <= 350) {
                 GameState.setGameState(GameState.MENU);
             }
         }

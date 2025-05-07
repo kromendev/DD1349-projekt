@@ -96,4 +96,25 @@ public class Menu {
         g.drawRect(center, 400, buttonX, buttonY);
         g.drawString("Main menu", getCenteredX(g, "Main menu"), 435);
     }
+
+    void drawGameOver(Graphics g) {
+        Graphics2D g2 = (Graphics2D)g;
+
+        gp.tm.draw(g2);
+
+        int buttonY = 50;
+        int buttonX = 250;
+        int center = gp.getWidth() / 2 - 125;
+
+        g.setColor(Color.BLACK);
+        g.fillRect(center-25, 100, 300, 300);
+        
+        g.setColor(Color.WHITE);
+        g.drawString("Typing Game", getCenteredX(g, "Typing Game"), 150);
+    
+        g.drawString("Game Over", getCenteredX(g, "Continue"), 235);
+
+        g.drawRect(center, 300, buttonX, buttonY);
+        g.drawString("Main menu", getCenteredX(g, "Main menu"), 335);
+    }
 }

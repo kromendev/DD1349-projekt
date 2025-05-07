@@ -18,4 +18,17 @@ public class GameLogic {
         int index = rand.nextInt(words.length);
         return words[index];
     }
+
+    public static boolean[] entityClosest(Entity a, Entity b, Entity c) {
+        double distToB = Math.abs(a.x - b.x);
+        double distToC = Math.abs(a.x - c.x);
+    
+        boolean[] result = new boolean[2];
+        if (distToB <= distToC) {
+            result[0] = true;
+        } else {
+            result[1] = true;
+        }
+        return result;
+    }
 }
