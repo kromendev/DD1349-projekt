@@ -30,8 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     Player player = new Player(this, keyH);
 
-    Monster monster = new Monster(this, keyH, "Baanana", player);
-    Knight knight = new Knight(this, keyH, "lol", player);
+    Monster monster = new Monster(this, keyH, GameLogic.getRandomWord(), player);
+    Knight knight = new Knight(this, keyH, GameLogic.getRandomWord(), player);
 
   
     TileManager tm = new TileManager(this);
@@ -134,12 +134,14 @@ public class GamePanel extends JPanel implements Runnable {
             //respawns the monster when it dies
             if (monster.alive != true) {
                 monster.alive = true;
+                monster.word = GameLogic.getRandomWord();
                 monster.setDefaultValues();
             }
 
             //spawns the knight 2 sec after game start and respawns the knight when it dies
             if (System.currentTimeMillis() - gameStartTime >= 2000 && knight.alive != true) {
                 knight.alive = true;
+                knight.word = GameLogic.getRandomWord();
                 knight.setDefaultValues();
             }
 
