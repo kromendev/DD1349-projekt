@@ -16,10 +16,11 @@ public class MouseListener extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        //mouse click position
+        int x = e.getX();
+        int y = e.getY();
+
         if (GameState.getGameState() == GameState.MENU) {
-            //mouse click position
-            int x = e.getX();
-            int y = e.getY();
 
             // Button dimensions from Main menu
             int center = gp.getWidth() / 2 - 125;
@@ -39,6 +40,12 @@ public class MouseListener extends MouseAdapter {
             // Credits button
             else if (x >= center && x <= center + buttonX && y >= 400 && y <= 450) {
                 GameState.setGameState(GameState.QUIT);
+            }
+        }
+        if (GameState.getGameState() == GameState.PLAY) {
+            //pause button
+            if (x >= 20 && x <= 150 && y >= 20 && y <= 50) {
+                GameState.setGameState(GameState.MENU);
             }
         }
     }        
