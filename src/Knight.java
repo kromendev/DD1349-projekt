@@ -74,6 +74,7 @@ public class Knight extends Entity{
      * Updates state of a monster object
      */
     public void update() {
+        //if closest to player
         if (gp.first[1] == true) {
             char[] chars = word.toCharArray();
             char key = keyH.readKey();
@@ -131,6 +132,7 @@ public class Knight extends Entity{
         }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 
+        //if closest to player
         if (gp.first[1] == true) {
             String typedPart = word.substring(0, i);
             String untypedPart = word.substring(i);
