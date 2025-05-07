@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
  * @author Husein Hassan
  * @version 2025-04-28
  */
-public class Monster extends Entity{
+public class Knight extends Entity{
     // word that needs to typed to kill monster
     String word;
     int i = 0;
@@ -28,7 +28,7 @@ public class Monster extends Entity{
      * @param keyH keyhandler that the monster is associated with.
      * @param word word that player needs to type to eliminate the monster.
      */
-    public Monster(GamePanel gp, KeyHandler keyH, String word, Player player) {
+    public Knight(GamePanel gp, KeyHandler keyH, String word, Player player) {
         this.gp = gp;
         this.keyH = keyH;
         this.word = word;
@@ -50,8 +50,10 @@ public class Monster extends Entity{
      */
     public void getMonsterImage() {
         try {
-            picture1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingMonsterLeft1.png"));
-            picture2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingMonsterLeft2.png"));
+            picture1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Knight(1).png"));
+            picture2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Knight(2).png"));
+            picture3 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Knight(3).png"));
+            picture4 = ImageIO.read(getClass().getResourceAsStream("/Sprites/Knight(4).png"));
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -61,11 +63,11 @@ public class Monster extends Entity{
      * Sets default position and speed for Monster
      */
     public void setDefaultValues() {
-        i = 0;
         x = 500;
         y = 384;
         speed = 1;
         direction = "Left";
+        i = 0;
     }
 
     /**
@@ -73,7 +75,7 @@ public class Monster extends Entity{
      */
     public void update() {
         //if closest to player
-        if (gp.first[0] == true) {
+        if (gp.first[1] == true) {
             char[] chars = word.toCharArray();
             char key = keyH.readKey();
             if (this.i < chars.length && chars[this.i] == key) {
@@ -84,7 +86,7 @@ public class Monster extends Entity{
             }
             else if (this.i >= chars.length) {
                 alive = false;
-                gp.first[0] = false;
+                gp.first[1] = false;
             }
         }
 
@@ -123,11 +125,15 @@ public class Monster extends Entity{
             image = picture1;
         } else if (spriteNum == 2) {
             image = picture2;
+        }else if (spriteNum == 3) {
+            image = picture3;
+        }else if (spriteNum == 4) {
+            image = picture4;
         }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 
         //if closest to player
-        if (gp.first[0] == true) {
+        if (gp.first[1] == true) {
             String typedPart = word.substring(0, i);
             String untypedPart = word.substring(i);
     

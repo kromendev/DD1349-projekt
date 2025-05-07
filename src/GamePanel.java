@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.File;
+
 import javax.swing.JPanel;
 
 /**
@@ -28,7 +29,11 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
-    Monster monster = new Monster(this, keyH, "Baaaaaaaaaaaaaaaaaaaaanana", player);
+
+    Monster monster = new Monster(this, keyH, "Baanana", player);
+    Knight knight = new Knight(this, keyH, "lol", player);
+
+  
     TileManager tm = new TileManager(this);
     Menu menu = new Menu(this);
     public Collision collision = new Collision(this);
@@ -38,6 +43,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     // FPS
     final int fps = 60;
+
+    //needed for knight to spawn in later
+    long gameStartTime = System.currentTimeMillis();
+
+    //Boolean to check witch entity is first (monster or knight)
+    Boolean[] first = {false, false}; 
+
 
     /**
      * Creates a game panel.
@@ -116,17 +128,45 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         if (GameState.getGameState() == GameState.PLAY) {
             player.update();
-
             monster.update();
+            knight.update();
 
+            //respawns the monster when it dies
+            if (monster.alive != true) {
+                monster.alive = true;
+                monster.setDefaultValues();
+            }
+
+            //spawns the knight 2 sec after game start and respawns the knight when it dies
+            if (System.currentTimeMillis() - gameStartTime >= 2000 && knight.alive != true) {
+                knight.alive = true;
+                knight.setDefaultValues();
+            }
+
+            //Checks if any entity is alredy assigned as the closest to the player and if not assignes one
+            if (first[0] == false && first[1] == false) {
+                double monsterDist = Math.hypot(player.x - monster.x, player.y - monster.y);
+                double knightDist = Math.hypot(player.x - knight.x, player.y - knight.y);
+
+                if (monsterDist <= knightDist) {
+                    first[0] = true; // monster is closer
+                } else {
+                    first[1] = true; // knight is closer
+                }
+            }
+
+            
             player.collisionOn = false;
             this.collision.checkEntity(player, monster); // when there are more monsters, create a loop that checks for every monster.
+            this.collision.checkEntity(player, knight);
 
             if (player.collisionOn) {
                 // resets the game
                 player.setDefaultValues();
                 monster.setDefaultValues();
-                monster.i = 0;
+                knight.setDefaultValues();
+
+                gameStartTime = System.currentTimeMillis();
             }
         }
         else if (GameState.getGameState() == GameState.QUIT) {
@@ -157,6 +197,9 @@ public class GamePanel extends JPanel implements Runnable {
             
             if (monster.alive) {
                 monster.draw(g2);
+            }
+            if (knight.alive) {
+                knight.draw(g2);
             }
             player.draw(g2);
     

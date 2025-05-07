@@ -45,9 +45,9 @@ public class Player extends Entity{
      */
     public void getPlayerImage() {
         try {
-            right1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight2.png"));
-            right3 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight3.png"));
+            picture1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight1.png"));
+            picture2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight2.png"));
+            picture3 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingPlayerRight3.png"));
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -100,12 +100,12 @@ public class Player extends Entity{
         BufferedImage image = null;
 
         if (spriteNum == 1) {
-            image = right1;
+            image = picture1;
         } else if (spriteNum == 2) {
-            image = right2;
+            image = picture2;
         }
         else if (spriteNum == 3) {
-            image = right3;
+            image = picture3;
         }
 
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
