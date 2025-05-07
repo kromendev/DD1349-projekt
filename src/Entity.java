@@ -13,7 +13,7 @@ public class Entity {
     public String direction;
     public boolean alive = true;
 
-    public BufferedImage right1, right2, right3, left1, left2;
+    public BufferedImage picture1, picture2, picture3, picture4, picture5;
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
