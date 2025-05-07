@@ -129,6 +129,9 @@ public class GamePanel extends JPanel implements Runnable {
                 monster.i = 0;
             }
         }
+        else if (GameState.getGameState() == GameState.QUIT) {
+            System.exit(0);
+        }
     }
 
 
@@ -147,7 +150,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (GameState.getGameState() == GameState.MENU) {
             menu.drawMenu(g2);
-        } else if (GameState.getGameState() == GameState.PLAY) {
+        } 
+        else if (GameState.getGameState() == GameState.PLAY) {
             // draws map
             tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
             

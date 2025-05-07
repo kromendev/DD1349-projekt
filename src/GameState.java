@@ -5,12 +5,15 @@ public enum GameState {
     MENU,
     PLAY,
     SETTINGS,
-    CREDITS;
+    CREDITS,
+    QUIT;
 
     private static GameState currentState = MENU;
 
     /**
-     * Returns the current game state.
+     * Getter method for current game state.
+     * 
+     * @return current game state
      */
     public static GameState getGameState() {
         return currentState;
