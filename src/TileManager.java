@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class TileManager {
 
     public void loadMap() {
         try {
-            InputStream is = getClass().getResourceAsStream("/MapData.txt");
+            InputStream is = getClass().getResourceAsStream("/Data/MapData.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int row = 0;
