@@ -26,18 +26,19 @@ public class MouseListener extends MouseAdapter {
             int buttonX = 250;
     
             // Start Game button
+          
             if (x >= center && x <= center + buttonX && y >= 200 && y <= 250) {
                 GameState.setGameState(GameState.PLAY);
             }
     
             // Settings button
             else if (x >= center && x <= center + buttonX && y >= 300 && y <= 350) {
-                GameState.setGameState(GameState.SETTINGS);
+                GameState.setGameState(GameState.CREDITS);
             }
     
             // Credits button
             else if (x >= center && x <= center + buttonX && y >= 400 && y <= 450) {
-                GameState.setGameState(GameState.CREDITS);
+                GameState.setGameState(GameState.QUIT);
             }
         }
     }        
