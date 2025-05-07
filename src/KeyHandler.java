@@ -11,7 +11,8 @@ import java.awt.event.KeyListener;
  */
 public class KeyHandler implements KeyListener {
 
-    public boolean upPressed, downPressed, rightPressed, leftPressed, anythingTyped;
+    public boolean upPressed, downPressed, rightPressed, leftPressed;
+    public boolean anythingTyped;
 
     private char lastKeyPressed = 0;
     private boolean hasNewKey = false;
@@ -37,6 +38,7 @@ public class KeyHandler implements KeyListener {
         if (Character.isDefined(keyChar) && !Character.isISOControl(keyChar)) {
             lastKeyPressed = keyChar;
             hasNewKey = true;
+            anythingTyped = true;
         }
 
         /*int code = e.getKeyCode();
@@ -73,6 +75,11 @@ public class KeyHandler implements KeyListener {
         }*/
     }
 
+    /**
+     * Reads a keyboard input once.
+     * 
+     * @return input key
+     */
     public char readKey() {
         if (!hasNewKey) {
             return 0;

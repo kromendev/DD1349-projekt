@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeoutException;
 
 import javax.imageio.ImageIO;
 
@@ -31,7 +32,16 @@ public class TileManager {
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/FloorTile2.png"));
 
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/BackgroundTile1.png"));
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/BackgroundTile1V2.png"));
+
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/BackgroundTileLit.png"));
+
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/BackgroundTileTorch1.png"));
+
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/Sprites/BackgroundTileTorch2.png"));
             
         } catch (IOException e) {
             e.printStackTrace();
