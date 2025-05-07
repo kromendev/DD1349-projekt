@@ -1,6 +1,12 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * This class Draws the Main menu screen.
+ * 
+ * @author Gustav dyrcz
+ * @version 2025-05-07
+ */
 public class Menu {
     GamePanel gp;
 

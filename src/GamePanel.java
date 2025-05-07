@@ -33,8 +33,6 @@ public class GamePanel extends JPanel implements Runnable {
     Menu menu = new Menu(this);
     public Collision collision = new Collision(this);
 
-    public GameState gameState = GameState.MENU;
-
     // Font
     private Font gameFont;
 
@@ -60,24 +58,6 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Registers the MouseListener class
         addMouseListener(new MouseListener(this)); 
-    }
-
-    /**
-     * Values for current state of the game.
-     */
-    public enum GameState {
-        MENU,
-        PLAY,
-        SETTINGS,
-        CREDITS
-    }
-    
-    public GameState getGameState() {
-        return gameState;
-    }
-    
-    public void setGameState(GameState newState) {
-        this.gameState = newState;
     }
 
     /**
@@ -134,7 +114,7 @@ public class GamePanel extends JPanel implements Runnable {
      * Updates game information
      */
     public void update() {
-        if (gameState == GameState.PLAY) {
+        if (GameState.getGameState() == GameState.PLAY) {
             player.update();
 
             monster.update();
@@ -165,9 +145,9 @@ public class GamePanel extends JPanel implements Runnable {
         g2.setFont(gameFont);
         g2.setColor(Color.WHITE);
 
-        if (getGameState() == GameState.MENU) {
+        if (GameState.getGameState() == GameState.MENU) {
             menu.drawMenu(g2);
-        } else if (getGameState() == GameState.PLAY) {
+        } else if (GameState.getGameState() == GameState.PLAY) {
             // draws map
             tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
             

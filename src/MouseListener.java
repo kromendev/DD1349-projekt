@@ -16,7 +16,7 @@ public class MouseListener extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (gp.gameState == GamePanel.GameState.MENU) {
+        if (GameState.getGameState() == GameState.MENU) {
             //mouse click position
             int x = e.getX();
             int y = e.getY();
@@ -28,18 +28,18 @@ public class MouseListener extends MouseAdapter {
             // Start Game button
             if (x >= center && x <= center + buttonX &&
                 y >= 200 && y <= 250) {
-                gp.setGameState(GamePanel.GameState.PLAY);
+                    GameState.setGameState(GameState.PLAY);
                 gp.requestFocusInWindow();
             }
     
             // Settings button
             else if (x >= center && x <= center + buttonX && y >= 300 && y <= 350) {
-                gp.setGameState(GamePanel.GameState.SETTINGS);
+                GameState.setGameState(GameState.SETTINGS);
             }
     
             // Credits button
             else if (x >= center && x <= center + buttonX && y >= 400 && y <= 450) {
-                gp.setGameState(GamePanel.GameState.CREDITS);
+                GameState.setGameState(GameState.CREDITS);
             }
         }
     }        
