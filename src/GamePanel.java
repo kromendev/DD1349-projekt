@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.File;
+
 import javax.swing.JPanel;
 
 /**
@@ -114,28 +115,53 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    long gameStartTime = System.currentTimeMillis();
+    Boolean[] first = {false, false}; 
+
     /**
      * Updates game information
      */
     public void update() {
         if (GameState.getGameState() == GameState.PLAY) {
-
             player.update();
 
             monster.update();
-            
+
             knight.update();
 
+            if (monster.alive != true) {
+                monster.alive = true;
+                monster.setDefaultValues();
+            }
+
+            if (System.currentTimeMillis() - gameStartTime >= 2000 && knight.alive != true) {
+                knight.alive = true;
+                knight.setDefaultValues();
+            }
+
+            if (first[0] == false && first[1] == false) {
+                double monsterDist = Math.hypot(player.x - monster.x, player.y - monster.y);
+                double knightDist = Math.hypot(player.x - knight.x, player.y - knight.y);
+
+                if (monsterDist <= knightDist) {
+                    first[0] = true; // monster is closer
+                } else {
+                    first[1] = true; // knight is closer
+                }
+            }
+
+            
             player.collisionOn = false;
             this.collision.checkEntity(player, monster); // when there are more monsters, create a loop that checks for every monster.
+            this.collision.checkEntity(player, knight);
 
             if (player.collisionOn) {
                 // resets the game
                 player.setDefaultValues();
                 monster.setDefaultValues();
                 knight.setDefaultValues();
-                monster.i = 0;
-                knight.i = 0;
+
+                gameStartTime = System.currentTimeMillis();
             }
         }
         else if (GameState.getGameState() == GameState.QUIT) {

@@ -11,7 +11,7 @@ public class Entity {
     public int x, y;
     public int speed;
     public String direction;
-    public boolean alive = true;
+    public boolean alive;
 
     public BufferedImage picture1, picture2, picture3, picture4, picture5;
 
