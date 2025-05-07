@@ -29,6 +29,8 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     Player player = new Player(this, keyH);
     Monster monster = new Monster(this, keyH, "Baanana", player);
+    Knight knight = new Knight(this, keyH, "lol", player);
+
     TileManager tm = new TileManager(this);
     Menu menu = new Menu(this);
     public Collision collision = new Collision(this);
@@ -115,9 +117,12 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public void update() {
         if (GameState.getGameState() == GameState.PLAY) {
+
             player.update();
 
             monster.update();
+            
+            knight.update();
 
             player.collisionOn = false;
             this.collision.checkEntity(player, monster); // when there are more monsters, create a loop that checks for every monster.
@@ -126,7 +131,9 @@ public class GamePanel extends JPanel implements Runnable {
                 // resets the game
                 player.setDefaultValues();
                 monster.setDefaultValues();
+                knight.setDefaultValues();
                 monster.i = 0;
+                knight.i = 0;
             }
         }
     }
@@ -153,6 +160,9 @@ public class GamePanel extends JPanel implements Runnable {
             
             if (monster.alive) {
                 monster.draw(g2);
+            }
+            if (knight.alive) {
+                knight.draw(g2);
             }
             player.draw(g2);
     
