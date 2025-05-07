@@ -26,10 +26,8 @@ public class MouseListener extends MouseAdapter {
             int buttonX = 250;
     
             // Start Game button
-            if (x >= center && x <= center + buttonX &&
-                y >= 200 && y <= 250) {
+            if (x >= center && x <= center + buttonX && y >= 200 && y <= 250) {
                 GameState.setGameState(GameState.PLAY);
-                gp.requestFocusInWindow();
             }
     
             // Settings button
