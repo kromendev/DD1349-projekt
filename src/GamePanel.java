@@ -4,8 +4,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.File;
-
 import javax.swing.JPanel;
+
 /**
  * This class draws and refreshes the gamepanel.
  * 
@@ -30,7 +30,10 @@ public class GamePanel extends JPanel implements Runnable {
     Player player = new Player(this, keyH);
     Monster monster = new Monster(this, keyH, "ooooooooooo o", player);
     TileManager tm = new TileManager(this);
+    Menu menu = new Menu(this);
     public Collision collision = new Collision(this);
+
+    public GameState gameState = GameState.MENU;
 
     // Font
     private Font gameFont;
@@ -54,6 +57,27 @@ public class GamePanel extends JPanel implements Runnable {
         } catch (Exception e) {
             gameFont = new Font("Arial", Font.BOLD, 20); // fallback
         }
+
+        // Registers the MouseListener class
+        addMouseListener(new MouseListener(this)); 
+    }
+
+    /**
+     * Values for current state of the game.
+     */
+    public enum GameState {
+        MENU,
+        PLAY,
+        SETTINGS,
+        CREDITS
+    }
+    
+    public GameState getGameState() {
+        return gameState;
+    }
+    
+    public void setGameState(GameState newState) {
+        this.gameState = newState;
     }
 
     /**
@@ -68,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
      * Runs main game loop, overrides run() from Runnable interface.
      */
     @Override
-    public void run() {
+    public void run() { 
 
         double drawInterval = 1000000000 / fps; // 0.016666s
         double delta = 0;
@@ -110,19 +134,23 @@ public class GamePanel extends JPanel implements Runnable {
      * Updates game information
      */
     public void update() {
-        monster.update();
+        if (gameState == GameState.PLAY) {
+            player.update();
 
-        player.collisionOn = false;
-        this.collision.checkEntity(player, monster); // when there are more monsters, create a loop that checks for every monster.
+            monster.update();
 
-        if (player.collisionOn) {
-            // resets the game
-            player.setDefaultValues();
-            monster.setDefaultValues();
-            monster.i = 0;
+            player.collisionOn = false;
+            this.collision.checkEntity(player, monster); // when there are more monsters, create a loop that checks for every monster.
+
+            if (player.collisionOn) {
+                // resets the game
+                player.setDefaultValues();
+                monster.setDefaultValues();
+                monster.i = 0;
+            }
         }
-        player.update();
     }
+
 
     /**
      * Draws game information onto the panel
@@ -136,15 +164,19 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g; // setting g as a 2d graphic g2
         g2.setFont(gameFont);
         g2.setColor(Color.WHITE);
-        
-        // draws map
-        tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
 
-        if (monster.alive) {
-            monster.draw(g2);
+        if (getGameState() == GameState.MENU) {
+            menu.drawMenu(g2);
+        } else if (getGameState() == GameState.PLAY) {
+            // draws map
+            tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
+            
+            if (monster.alive) {
+                monster.draw(g2);
+            }
+            player.draw(g2);
+    
+            g2.dispose();
         }
-        player.draw(g2);
-
-        g2.dispose();
     }
 }
