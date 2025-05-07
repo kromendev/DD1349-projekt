@@ -62,7 +62,7 @@ public class Monster extends Entity{
      */
     public void setDefaultValues() {
         x = 500;
-        y = 384; // raised 1 px to avoid collision with floor tiles
+        y = 384;
         speed = 1;
         direction = "Left";
     }
