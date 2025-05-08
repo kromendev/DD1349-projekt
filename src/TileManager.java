@@ -49,7 +49,7 @@ public class TileManager {
 
     public void loadMap() {
         try {
-            InputStream is = getClass().getResourceAsStream("/MapData.txt");
+            InputStream is = getClass().getResourceAsStream("/Data/MapData.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int row = 0;
@@ -80,7 +80,6 @@ public class TileManager {
         int y = 0;
         
         while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
-
             int tileNum = mapTileNum[col][row]; 
 
             g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize,  null);

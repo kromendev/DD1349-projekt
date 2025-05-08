@@ -30,8 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     Player player = new Player(this, keyH);
 
-    Monster monster = new Monster(this, keyH, "Baanana", player);
-    Knight knight = new Knight(this, keyH, "lol", player);
+    Monster monster = new Monster(this, keyH, GameLogic.getRandomWord(), player);
+    Knight knight = new Knight(this, keyH, GameLogic.getRandomWord(), player);
 
   
     TileManager tm = new TileManager(this);
@@ -45,10 +45,10 @@ public class GamePanel extends JPanel implements Runnable {
     final int fps = 60;
 
     //needed for knight to spawn in later
-    long gameStartTime = System.currentTimeMillis();
+    long timer = System.currentTimeMillis();
 
     //Boolean to check witch entity is first (monster or knight)
-    Boolean[] first = {false, false}; 
+    boolean[] first = {false, false}; 
 
 
     /**
@@ -56,14 +56,13 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // set size
-        this.setBackground(Color.BLACK); // sets background color
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true); // makes panel able to capture inputs
 
         // Getting the custom font from the /src folder
         try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/PressStart2P-vaV7.ttf")).deriveFont(20f);
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/Data/PressStart2P-vaV7.ttf")).deriveFont(20f);
         } catch (Exception e) {
             gameFont = new Font("Arial", Font.BOLD, 20); // fallback
         }
@@ -85,39 +84,21 @@ public class GamePanel extends JPanel implements Runnable {
      */
     @Override
     public void run() { 
-
-        double drawInterval = 1000000000 / fps; // 0.016666s
-        double delta = 0;
+        final double drawInterval = 1000000000.0 / fps;
+        double tick = 0;
         long lastTime = System.nanoTime();
-        long currentTime;
-        long timer = 0;
-        int drawCount = 0;
-
-        while(gameThread != null) {
-
-            currentTime = System.nanoTime();
-
-            delta += (currentTime - lastTime) / drawInterval;
-
-            timer += currentTime - lastTime;
-
-            lastTime = currentTime;
-
-            if (delta > 1) {
-                // update infromation
-                update();
-
-                // draw the screen with the updated information
-                repaint(); // inbuilt method that calls paintcomponent
-
-                delta--;
-                drawCount++;
-            }
-
-            if (timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
-                drawCount = 0;
-                timer = 0;
+    
+        while (gameThread != null) {
+            long now = System.nanoTime();
+            tick += (now - lastTime) / drawInterval;
+            lastTime = now;
+    
+            if (tick >= 1) {
+                if (GameState.getGameState() == GameState.PLAY) {
+                    update();
+                }
+                repaint();
+                tick--;
             }
         }
     }
@@ -126,54 +107,16 @@ public class GamePanel extends JPanel implements Runnable {
      * Updates game information
      */
     public void update() {
-        if (GameState.getGameState() == GameState.PLAY) {
-            player.update();
-            monster.update();
-            knight.update();
+        monster.update();
+        knight.update();
+        player.update();
 
-            //respawns the monster when it dies
-            if (monster.alive != true) {
-                monster.alive = true;
-                monster.setDefaultValues();
-            }
+        GameLogic.entityRandomSpawn(this);
 
-            //spawns the knight 2 sec after game start and respawns the knight when it dies
-            if (System.currentTimeMillis() - gameStartTime >= 2000 && knight.alive != true) {
-                knight.alive = true;
-                knight.setDefaultValues();
-            }
+        first = GameLogic.entityClosest(player, monster, knight);
 
-            //Checks if any entity is alredy assigned as the closest to the player and if not assignes one
-            if (first[0] == false && first[1] == false) {
-                double monsterDist = Math.hypot(player.x - monster.x, player.y - monster.y);
-                double knightDist = Math.hypot(player.x - knight.x, player.y - knight.y);
-
-                if (monsterDist <= knightDist) {
-                    first[0] = true; // monster is closer
-                } else {
-                    first[1] = true; // knight is closer
-                }
-            }
-
-            
-            player.collisionOn = false;
-            this.collision.checkEntity(player, monster); // when there are more monsters, create a loop that checks for every monster.
-            this.collision.checkEntity(player, knight);
-
-            if (player.collisionOn) {
-                // resets the game
-                player.setDefaultValues();
-                monster.setDefaultValues();
-                knight.setDefaultValues();
-
-                gameStartTime = System.currentTimeMillis();
-            }
-        }
-        else if (GameState.getGameState() == GameState.QUIT) {
-            System.exit(0);
-        }
+        GameLogic.ifGameOver(this);
     }
-
 
     /**
      * Draws game information onto the panel
@@ -191,9 +134,11 @@ public class GamePanel extends JPanel implements Runnable {
         if (GameState.getGameState() == GameState.MENU) {
             menu.drawMenu(g2);
         } 
-        else if (GameState.getGameState() == GameState.PLAY) {
+        if (GameState.getGameState() == GameState.PLAY) {
             // draws map
             tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
+
+            menu.drawPauseButton(g2);
             
             if (monster.alive) {
                 monster.draw(g2);
@@ -204,6 +149,15 @@ public class GamePanel extends JPanel implements Runnable {
             player.draw(g2);
     
             g2.dispose();
+        } 
+        if (GameState.getGameState() == GameState.PAUSE) {
+            menu.drawPause(g2);
+        }
+        if (GameState.getGameState() == GameState.CREDITS) {
+            menu.drawCredits(g2);
+        }
+        if(GameState.getGameState() == GameState.GAMEOVER){
+            menu.drawGameOver(g2);
         }
     }
 }
