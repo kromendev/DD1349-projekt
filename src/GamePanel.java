@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Collision collision = new Collision(this);
 
     // Font
-    private Font gameFont;
+    Font gameFont;
 
     // FPS
     final int fps = 60;

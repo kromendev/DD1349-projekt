@@ -30,6 +30,7 @@ public class Menu {
 
         g.setColor(Color.BLACK);
         g.fillRect(center-25, 100, 300, 400);
+        g.fillRect(center+25, 525, 200, 30);
         
         g.setColor(Color.WHITE);
         g.drawString("Typing Game", getCenteredX(g, "Typing Game"), 150);
@@ -42,6 +43,11 @@ public class Menu {
 
         g.drawRect(center, 400, buttonX, buttonY);
         g.drawString("Quit", getCenteredX(g, "Quit"), 435);
+
+
+        g.setFont(gp.gameFont.deriveFont(12f));
+        g.drawRect(center+25, 525, 200, 30);
+        g.drawString("Reset Highscore", getCenteredX(g, "Reset Highscore"), 545);
     }
 
     void drawInPlay(Graphics g){
@@ -51,8 +57,11 @@ public class Menu {
         g.drawRect(20, 20, 150, 50);
         g.drawString("Pause", 20 + (150 - g.getFontMetrics().stringWidth("Pause"))/2, 55);
 
-        g.drawString("Monsters killed", gp.getWidth() - 350, 55);
-        g.drawString(String.valueOf(gp.killed), gp.getWidth() - 350, 95);
+        g.drawString("Hight score", gp.getWidth() - 350, 55);
+        g.drawString(String.valueOf(GameLogic.getHighScore()), gp.getWidth() - 350, 95);
+
+        g.drawString("Monsters killed", gp.getWidth() - 350, 135);
+        g.drawString(String.valueOf(gp.killed), gp.getWidth() - 350, 175);
     }
 
     void drawPause(Graphics g) {

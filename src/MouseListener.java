@@ -43,6 +43,10 @@ public class MouseListener extends MouseAdapter {
                 GameState.setGameState(GameState.QUIT);
                 System.exit(0);
             }
+
+            else if (x >= center + 25 && x <= center + 225 && y >= 525 && y <= 555) {
+                GameLogic.resetHighScore();
+            }
         }
 
         if (GameState.getGameState() == GameState.PLAY) {

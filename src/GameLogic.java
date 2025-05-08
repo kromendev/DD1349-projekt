@@ -4,6 +4,43 @@ public class GameLogic {
     private static final Random rand = new Random();
     private static long gamestart = System.currentTimeMillis();
     private static long timer = System.currentTimeMillis();
+    
+    private static final String HIGH_SCORE_FILE = "Src/Data/highscore.txt";
+    private static int highScore = getHighScore(); // initialize when class loads
+    
+    
+    public static int getHighScore() {
+        if (highScore == 0) {
+            try (java.util.Scanner scanner = new java.util.Scanner(new java.io.File(HIGH_SCORE_FILE))) {
+                highScore = scanner.nextInt();
+            } catch (Exception e) {
+                highScore = 0; // if file not found or invalid
+            }
+        }
+        return highScore;
+    }
+
+    public static void checkAndSaveHighScore(int currentScore) {
+        if (currentScore > highScore) {
+            highScore = currentScore;
+            try (java.io.PrintWriter writer = new java.io.PrintWriter(HIGH_SCORE_FILE)) {
+                writer.println(highScore);
+            } catch (Exception e) {
+                System.out.println("Failed to save high score");
+            }
+        }
+    }
+
+    public static void resetHighScore() {
+        highScore = 0;
+        try (java.io.PrintWriter writer = new java.io.PrintWriter(HIGH_SCORE_FILE)) {
+            writer.println(highScore);
+        } catch (Exception e) {
+            System.out.println("Failed to save high score");
+        }
+    }
+
+
 
     //word bank for the entitys
     private static final String[] words = {

@@ -68,6 +68,7 @@ public class Monster extends Entity{
                     alive = false;
                     lives = livesSave;
                     gp.killed++;
+                    GameLogic.checkAndSaveHighScore(gp.killed);
                 } else {
                     i = 0;
                     this.word = GameLogic.getRandomWord();
