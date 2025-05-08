@@ -31,7 +31,7 @@ public class Player extends Entity{
      * Sets the players default values
      */
     public void setDefaultValues() {
-        x = 100;
+        x = -gp.tileSize;
         y = 384;
         speed = 4; // not used for player, implement in future versions?
         direction = "Right";
@@ -41,6 +41,10 @@ public class Player extends Entity{
      * Updates the state of the player
      */
     public void update() {
+        if (x < 100) {
+            x += speed;
+        }
+
         if (keyH.anythingTyped && !aniCycle) {
             aniCycle = true;
             spriteNum = 2;

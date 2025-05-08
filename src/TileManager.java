@@ -6,6 +6,12 @@ import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
+/**
+ * A class for the games map, specifies position and collision for each map tile.
+ * 
+ * @author Husein Hassan
+ * @version 2025-05-08
+ */
 public class TileManager {
     GamePanel gp;
     public Tile[] tile;
@@ -15,12 +21,17 @@ public class TileManager {
         this.gp = gp;
 
         tile = new Tile[10];
-        mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+        mapTileNum = new int[gp.maxWorldCol][gp.maxScreenRow];
 
         getTileImage();
         loadMap();
     }
 
+    /**
+     * Getter method for tile sprites, also specifies if a tile has collision or not.
+     * 
+     * @throws IOException if a sprite can't be found.
+     */
     public void getTileImage() {
         try {
             tile[0] = new Tile();
@@ -47,6 +58,11 @@ public class TileManager {
         }
     }
 
+    /**
+     * Loads the map tiles in their positions specified in a txt file.
+     * 
+     * @throws Exception if txt file can't be found.
+     */
     public void loadMap() {
         try {
             InputStream is = getClass().getResourceAsStream("/Data/MapData.txt");
@@ -58,7 +74,7 @@ public class TileManager {
             while ((line = br.readLine()) != null && row < gp.maxScreenRow) {
                 String[] numbers = line.split(" ");
                 
-                for (int col = 0; col < gp.maxScreenCol && col < numbers.length; col++) {
+                for (int col = 0; col < gp.maxWorldCol && col < numbers.length; col++) {
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[col][row] = num;
                 }
@@ -72,21 +88,26 @@ public class TileManager {
         }
     }
 
+    /**
+     * Draws the map
+     * 
+     * @param g2 the 2d graphics to draw.
+     */
     public void draw(Graphics2D g2) {
 
         int col = 0;
         int row = 0;
-        int x = 0;
+        int x = -gp.tileSize;
         int y = 0;
         
-        while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
+        while (col < gp.maxWorldCol && row < gp.maxScreenRow) {
             int tileNum = mapTileNum[col][row]; 
 
             g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize,  null);
             col++;
             x += gp.tileSize;
 
-            if (col == gp.maxScreenCol) {
+            if (col == gp.maxWorldCol) {
                 col = 0;
                 x = 0;
                 row++;

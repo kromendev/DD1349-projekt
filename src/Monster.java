@@ -36,7 +36,7 @@ public class Monster extends Entity{
      */
     public void setDefaultValues() {
         super.setDefaultValues();
-        x = 500;
+        x = 836;
         y = 384;
         speed = 1;
         direction = "Left";
@@ -46,7 +46,7 @@ public class Monster extends Entity{
      * Updates state of a monster object
      */
     public void update() {
-        //if closest to player
+        // if closest to player
         if (gp.first[0] == true) {
             char[] chars = word.toCharArray();
             char key = keyH.readKey();
