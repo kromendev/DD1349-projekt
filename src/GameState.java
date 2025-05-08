@@ -1,5 +1,9 @@
 /**
- * Represents the current state of the game.
+ * Represents the current state of the game
+ * 
+ * @author Gustav Dyrcz
+ * @author Husein Hassan
+ * @version 2025-05-07
  */
 public enum GameState {
     MENU,

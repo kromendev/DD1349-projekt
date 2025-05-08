@@ -9,7 +9,8 @@ import javax.imageio.ImageIO;
  * Explain this class
  * 
  * @author Husein Hassan
- * @version 2025-04-28
+ * @author Gustav Dyrcz
+ * @version 2025-05-08
  */
 public class Entity {
     public Rectangle hitbox;

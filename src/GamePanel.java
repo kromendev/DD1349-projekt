@@ -11,7 +11,8 @@ import javax.swing.JPanel;
  * This class draws and refreshes the gamepanel.
  * 
  * @author Husein Hassan
- * @version 2025-04-28
+ * @author Gustav dyrcz
+ * @version 2025-05-08
  */
 public class GamePanel extends JPanel implements Runnable {
     

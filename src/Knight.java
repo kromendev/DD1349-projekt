@@ -2,10 +2,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 /**
- * This class creates monsters.
+ * This class creates knight monsters.
  * 
- * @author Husein Hassan
- * @version 2025-04-28
+ * @author Gustav Dyrcz
+ * @version 2025-05-08
  */
 public class Knight extends Entity{
     // word that needs to typed to kill monster
