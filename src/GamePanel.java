@@ -8,7 +8,7 @@ import java.io.File;
 import javax.swing.JPanel;
 
 /**
- * This class draws and refreshes the gamepanel.
+ * This class draws and refreshes the gamepanel with all the game info.
  * 
  * @author Husein Hassan
  * @author Gustav dyrcz
@@ -133,7 +133,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     * Draws game information onto the panel
+     * Draws game information onto the panel.
      * 
      * @param g receives graphics to draw.
      */
@@ -185,16 +185,29 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Plays and loops a sound file endlessly
+     * 
+     * @param i file index in Sound class.
+     */
     public void playMusic(int i) {
         music.setFile(i);
         music.play();
         music.loop();
     }
 
+    /**
+     * Stops endless loop of sound file.
+     */
     public void stopMusic() {
         music.stop();
     }
 
+    /**
+     * Plays a sound once.
+     * 
+     * @param i file index in Sound class.
+     */
     public void playSFX(int i) {
         sfx.setFile(i);
         sfx.play();

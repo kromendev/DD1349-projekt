@@ -17,6 +17,11 @@ public class TileManager {
     public Tile[] tile;
     public int mapTileNum[][];
 
+    /**
+     * Constructor for the tilemanager, creates a tilemanager object.
+     * 
+     * @param gp specifies the gamepanel.
+     */
     public TileManager(GamePanel gp) {
         this.gp = gp;
 

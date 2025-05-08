@@ -1,6 +1,9 @@
 import javax.swing.JFrame;
 /**
- * Explain videogame here..
+ * This a word typing videogame where monsters walk into frame from right to left.
+ * If these monsters reach the player the player dies and you get the option to restart.
+ * However these monsters have a word over their heads, write these words to eliminate
+ * the monsters. How many can you take out?
  * 
  * @author Husein Hassan
  * @version 2025-04-28

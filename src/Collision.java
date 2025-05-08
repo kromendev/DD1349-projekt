@@ -7,14 +7,19 @@
 public class Collision {
     GamePanel gp;
 
+    /**
+     * Constructor that specifies the gamepanel for a Collision object.
+     * 
+     * @param gp specified gamepanel.
+     */
     public Collision(GamePanel gp) {
         this.gp = gp;
     }
 
     /**
-     * Checks for collisions between an entity and a map tile
+     * Checks for collisions between an entity and a map tile.
      * 
-     * @param entity to check collision for
+     * @param entity to check collision for.
      */
     public void checkTile(Entity entity) {
         // find hitbox coords on all 4 sides

@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
  * and whether they have collision.
  * 
  * @author Husein Hassan
- * @version 
+ * @version 2025-05-08
  */
 public class Tile {
     public BufferedImage image;

@@ -8,7 +8,6 @@ import java.awt.Graphics2D;
  * @version 2025-04-28
  */
 public class Monster extends Entity{
-    // word that needs to typed to kill monster
     Player player;
     public int lives;
     public int livesSave;
@@ -101,9 +100,9 @@ public class Monster extends Entity{
     }
 
     /**
-     * Draws monster
+     * Draws monster.
      * 
-     * @param g2 graphic to draw
+     * @param g2 graphic to draw.
      */
     public void draw(Graphics2D g2) {
         super.draw(g2);

@@ -1,7 +1,7 @@
 import java.awt.Graphics2D;
 
 /**
- * This class creates the player.
+ * This class creates the player. Subclass of entity.
  * 
  * @author Husein Hassan
  * @version 2025-05-04
