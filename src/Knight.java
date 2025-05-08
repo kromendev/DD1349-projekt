@@ -64,8 +64,10 @@ public class Knight extends Entity{
                 lives--;
                 if (lives <= 0) {
                     setDefaultValues();
+                    gp.playSFX(4);
                     alive = false;
                     lives = livesSave;
+                    gp.killed++;
                 } else {
                     i = 0;
                     this.word = GameLogic.getRandomWord();
@@ -90,6 +92,7 @@ public class Knight extends Entity{
                 }
                 else if (spriteNum == 2) {
                     spriteNum = 1;
+                    gp.playSFX(2);
                 }
                 spriteCounter = 0;
             }

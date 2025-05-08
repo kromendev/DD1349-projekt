@@ -55,6 +55,7 @@ public class Player extends Entity{
             spriteCounter++;
 
             if (spriteCounter > 10) {
+                gp.playSFX(1);
                 if (spriteNum == 2) {
                     spriteNum = 3;
                 } else if (spriteNum == 3) {

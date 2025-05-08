@@ -28,11 +28,17 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 576 px
 
     public final int maxWorldCol = 18; // max world column for monster spawning
-    public final int worldWidth = tileSize * maxWorldCol; // 864 px
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
+    Sound music= new Sound();
+    Sound sfx = new Sound();
+
+    private boolean musicStarted = false;
+    private boolean gameOver = false;
+
+    int killed = 0;
 
     Monster monster = new Monster(this, keyH, GameLogic.getRandomWord(), player, 1);
     Knight knight = new Knight(this, keyH, GameLogic.getRandomWord(), player, 2);
@@ -91,7 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
         final double drawInterval = 1000000000.0 / fps;
         double tick = 0;
         long lastTime = System.nanoTime();
-    
+
         while (gameThread != null) {
             long now = System.nanoTime();
             tick += (now - lastTime) / drawInterval;
@@ -99,6 +105,10 @@ public class GamePanel extends JPanel implements Runnable {
     
             if (tick >= 1) {
                 if (GameState.getGameState() == GameState.PLAY) {
+                    if (!musicStarted) {
+                        playMusic(0);
+                        musicStarted = true;
+                    }
                     update();
                 }
                 repaint();
@@ -139,10 +149,12 @@ public class GamePanel extends JPanel implements Runnable {
             menu.drawMenu(g2);
         } 
         if (GameState.getGameState() == GameState.PLAY) {
+            gameOver = false;
+
             // draws map
             tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
 
-            menu.drawPauseButton(g2);
+            menu.drawInPlay(g2);
             
             if (monster.alive) {
                 monster.draw(g2);
@@ -156,12 +168,35 @@ public class GamePanel extends JPanel implements Runnable {
         } 
         if (GameState.getGameState() == GameState.PAUSE) {
             menu.drawPause(g2);
+            stopMusic();
+            musicStarted = false;
         }
         if (GameState.getGameState() == GameState.CREDITS) {
             menu.drawCredits(g2);
         }
         if(GameState.getGameState() == GameState.GAMEOVER){
             menu.drawGameOver(g2);
+            stopMusic();
+            if (gameOver == false) {
+                playSFX(5);
+                gameOver = true;
+            }
+            musicStarted = false;
         }
+    }
+
+    public void playMusic(int i) {
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+
+    public void stopMusic() {
+        music.stop();
+    }
+
+    public void playSFX(int i) {
+        sfx.setFile(i);
+        sfx.play();
     }
 }

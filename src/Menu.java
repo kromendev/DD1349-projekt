@@ -44,12 +44,15 @@ public class Menu {
         g.drawString("Quit", getCenteredX(g, "Quit"), 435);
     }
 
-    void drawPauseButton(Graphics g){
+    void drawInPlay(Graphics g){
         g.setColor(Color.BLACK);
         g.fillRect(20, 20, 150, 50);
         g.setColor(Color.WHITE);
         g.drawRect(20, 20, 150, 50);
         g.drawString("Pause", 20 + (150 - g.getFontMetrics().stringWidth("Pause"))/2, 55);
+
+        g.drawString("Monsters killed", gp.getWidth() - 350, 55);
+        g.drawString(String.valueOf(gp.killed), gp.getWidth() - 350, 95);
     }
 
     void drawPause(Graphics g) {

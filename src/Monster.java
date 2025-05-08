@@ -65,8 +65,10 @@ public class Monster extends Entity{
                 lives--;
                 if (lives <= 0) {
                     setDefaultValues();
+                    gp.playSFX(4);
                     alive = false;
                     lives = livesSave;
+                    gp.killed++;
                 } else {
                     i = 0;
                     this.word = GameLogic.getRandomWord();
@@ -91,6 +93,7 @@ public class Monster extends Entity{
                 }
                 else if (spriteNum == 2) {
                     spriteNum = 1;
+                    gp.playSFX(3);
                 }
                 spriteCounter = 0;
             }
