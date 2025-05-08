@@ -139,7 +139,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             //spawns the knight 2 sec after game start and respawns the knight when it dies
-            if (System.currentTimeMillis() - gameStartTime >= 5000 && knight.alive != true) {
+            if (System.currentTimeMillis() - gameStartTime >= 3000 && knight.alive != true) {
                 knight.alive = true;
                 knight.word = GameLogic.getRandomWord();
                 knight.setDefaultValues();
@@ -158,16 +158,25 @@ public class GamePanel extends JPanel implements Runnable {
 
             if (player.collisionOn == true) {
                 GameState.setGameState(GameState.GAMEOVER);
-                player.collisionOn = false;
-                monster.alive = false;
-                knight.alive = false;
-                gameStartTime = System.currentTimeMillis();
+                reset();
             }
         }
         else if (GameState.getGameState() == GameState.QUIT) {
             System.exit(0);
         }
     }
+
+    public void reset(){
+        player.collisionOn = false;
+        monster.alive = false;
+        knight.alive = false;
+        monster.setDefaultValues();
+        knight.setDefaultValues();
+        first[0] = false;
+        first[1] = false;
+        gameStartTime = System.currentTimeMillis();
+    }
+
 
     /**
      * Draws game information onto the panel

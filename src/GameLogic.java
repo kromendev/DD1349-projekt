@@ -14,11 +14,13 @@ public class GameLogic {
 
     private static final Random rand = new Random();
 
+    // Returns random word from index
     public static String getRandomWord() {
         int index = rand.nextInt(words.length);
         return words[index];
     }
 
+    // Checks what entity is closest to player
     public static boolean[] entityClosest(Entity a, Entity b, Entity c) {
         double distToB = Math.abs(a.x - b.x);
         double distToC = Math.abs(a.x - c.x);

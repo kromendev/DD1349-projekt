@@ -30,6 +30,7 @@ public class MouseListener extends MouseAdapter {
           
             if (x >= center && x <= center + buttonX && y >= 200 && y <= 250) {
                 GameState.setGameState(GameState.PLAY);
+                gp.reset();
             }
     
             // Credits button

@@ -1,10 +1,5 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 /**
  * This class creates monsters.
@@ -17,8 +12,6 @@ public class Monster extends Entity{
     String word;
     int i = 0;
     
-    GamePanel gp;
-    KeyHandler keyH;
     Player player;
 
     /**
@@ -29,32 +22,16 @@ public class Monster extends Entity{
      * @param word word that player needs to type to eliminate the monster.
      */
     public Monster(GamePanel gp, KeyHandler keyH, String word, Player player) {
-        this.gp = gp;
-        this.keyH = keyH;
+        super(gp, keyH);
         this.word = word;
         this.player = player;
 
-        hitbox = new Rectangle();
-        hitbox.x = 18; // x coordinate in upscaled version
-        hitbox.y = 12; // y coord
-        hitbox.width = 24;
-        hitbox.height = 35;
+        setHitbox(18, 12, 24, 35);
 
         setDefaultValues();
-        getMonsterImage();
-    }
-    /**
-     * Getter for monster sprites
-     * 
-     * @throws IOException if program can't find the image files
-     */
-    public void getMonsterImage() {
-        try {
-            picture1 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingMonsterLeft1.png"));
-            picture2 = ImageIO.read(getClass().getResourceAsStream("/Sprites/TypingMonsterLeft2.png"));
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
+        
+        // Getting monster spirits
+        loadSprites("/Sprites/TypingMonsterLeft1.png", "/Sprites/TypingMonsterLeft2.png");
     }
 
     /**
@@ -117,14 +94,7 @@ public class Monster extends Entity{
      * @param g2 graphic to draw
      */
     public void draw(Graphics2D g2) {
-        BufferedImage image = null;
-
-        if (spriteNum == 1) {
-            image = picture1;
-        } else if (spriteNum == 2) {
-            image = picture2;
-        }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        super.draw(g2, gp.tileSize);
 
         //if closest to player
         if (gp.first[0] == true) {
