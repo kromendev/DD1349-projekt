@@ -9,8 +9,6 @@ import java.awt.Graphics2D;
  */
 public class Knight extends Entity{
     // word that needs to typed to kill monster
-    String word;
-    int i = 0;
     Player player;
 
     /**
@@ -37,11 +35,11 @@ public class Knight extends Entity{
      * Sets default position and speed for Monster
      */
     public void setDefaultValues() {
+        super.setDefaultValues();
         x = 500;
         y = 384;
         speed = 1;
         direction = "Left";
-        i = 0;
     }
 
     /**
@@ -59,6 +57,7 @@ public class Knight extends Entity{
                 this.i = 0;
             }
             else if (this.i >= chars.length) {
+                setDefaultValues();
                 alive = false;
                 gp.first[1] = false;
             }

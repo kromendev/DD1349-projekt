@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 public class Entity {
     public Rectangle hitbox;
     public int x, y;
+    int i = 0;
 
     public int speed;
     public String direction;
@@ -27,6 +28,7 @@ public class Entity {
 
     protected GamePanel gp;
     protected KeyHandler keyH;
+    public String word;
 
     public Entity(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -50,5 +52,9 @@ public class Entity {
     public void draw(Graphics2D g2) {
         BufferedImage image = pictures[spriteNum - 1];
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+    }
+
+    public void setDefaultValues() {
+       i = 0;
     }
 }

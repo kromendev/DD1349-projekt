@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int fps = 60;
 
     //needed for knight to spawn in later
-    long gameStartTime = System.currentTimeMillis();
+    long timer = System.currentTimeMillis();
 
     //Boolean to check witch entity is first (monster or knight)
     boolean[] first = {false, false}; 
@@ -56,7 +56,6 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // set size
-        this.setBackground(Color.BLACK); // sets background color
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true); // makes panel able to capture inputs
@@ -85,39 +84,21 @@ public class GamePanel extends JPanel implements Runnable {
      */
     @Override
     public void run() { 
-
-        double drawInterval = 1000000000 / fps; // 0.016666s
-        double delta = 0;
+        final double drawInterval = 1000000000.0 / fps;
+        double tick = 0;
         long lastTime = System.nanoTime();
-        long currentTime;
-        long timer = 0;
-        int drawCount = 0;
-
-        while(gameThread != null) {
-
-            currentTime = System.nanoTime();
-
-            delta += (currentTime - lastTime) / drawInterval;
-
-            timer += currentTime - lastTime;
-
-            lastTime = currentTime;
-
-            if (delta > 1) {
-                // update infromation
-                update();
-
-                // draw the screen with the updated information
-                repaint(); // inbuilt method that calls paintcomponent
-
-                delta--;
-                drawCount++;
-            }
-
-            if (timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
-                drawCount = 0;
-                timer = 0;
+    
+        while (gameThread != null) {
+            long now = System.nanoTime();
+            tick += (now - lastTime) / drawInterval;
+            lastTime = now;
+    
+            if (tick >= 1) {
+                if (GameState.getGameState() == GameState.PLAY) {
+                    update();
+                }
+                repaint();
+                tick--;
             }
         }
     }
@@ -126,57 +107,16 @@ public class GamePanel extends JPanel implements Runnable {
      * Updates game information
      */
     public void update() {
-        if (GameState.getGameState() == GameState.PLAY) {
-            player.update();
-            monster.update();
-            knight.update();
+        monster.update();
+        knight.update();
+        player.update();
 
-            //respawns the monster when it dies
-            if (monster.alive != true) {
-                monster.alive = true;
-                monster.word = GameLogic.getRandomWord();
-                monster.setDefaultValues();
-            }
+        GameLogic.entityRandomSpawn(this);
 
-            //spawns the knight 2 sec after game start and respawns the knight when it dies
-            if (System.currentTimeMillis() - gameStartTime >= 3000 && knight.alive != true) {
-                knight.alive = true;
-                knight.word = GameLogic.getRandomWord();
-                knight.setDefaultValues();
-            }
+        first = GameLogic.entityClosest(player, monster, knight);
 
-
-            //Checks if any entity is alredy assigned as the closest to the player and if not assignes one
-            if (first[0] == false && first[1] == false) {
-                first = GameLogic.entityClosest(player, monster, knight);
-            }
-
-            
-            player.collisionOn = false;
-            this.collision.checkEntity(player, monster); // when there are more monsters, create a loop that checks for every monster.
-            this.collision.checkEntity(player, knight);
-
-            if (player.collisionOn == true) {
-                GameState.setGameState(GameState.GAMEOVER);
-                reset();
-            }
-        }
-        else if (GameState.getGameState() == GameState.QUIT) {
-            System.exit(0);
-        }
+        GameLogic.ifGameOver(this);
     }
-
-    public void reset(){
-        player.collisionOn = false;
-        monster.alive = false;
-        knight.alive = false;
-        monster.setDefaultValues();
-        knight.setDefaultValues();
-        first[0] = false;
-        first[1] = false;
-        gameStartTime = System.currentTimeMillis();
-    }
-
 
     /**
      * Draws game information onto the panel

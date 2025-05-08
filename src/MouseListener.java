@@ -30,7 +30,7 @@ public class MouseListener extends MouseAdapter {
           
             if (x >= center && x <= center + buttonX && y >= 200 && y <= 250) {
                 GameState.setGameState(GameState.PLAY);
-                gp.reset();
+                GameLogic.reset(gp);
             }
     
             // Credits button
@@ -41,6 +41,7 @@ public class MouseListener extends MouseAdapter {
             // Credits button
             else if (x >= center && x <= center + buttonX && y >= 400 && y <= 450) {
                 GameState.setGameState(GameState.QUIT);
+                System.exit(0);
             }
         }
 
