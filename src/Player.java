@@ -71,6 +71,6 @@ public class Player extends Entity{
      * @param g2 graphic to draw
      */
     public void draw(Graphics2D g2) {
-        super.draw(g2, gp.tileSize);
+        super.draw(g2);
     }
 }

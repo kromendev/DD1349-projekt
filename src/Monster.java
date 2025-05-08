@@ -11,7 +11,6 @@ public class Monster extends Entity{
     // word that needs to typed to kill monster
     String word;
     int i = 0;
-    
     Player player;
 
     /**
@@ -94,7 +93,7 @@ public class Monster extends Entity{
      * @param g2 graphic to draw
      */
     public void draw(Graphics2D g2) {
-        super.draw(g2, gp.tileSize);
+        super.draw(g2);
 
         //if closest to player
         if (gp.first[0] == true) {

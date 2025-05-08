@@ -12,19 +12,18 @@ import javax.imageio.ImageIO;
  * @version 2025-04-28
  */
 public class Entity {
+    public Rectangle hitbox;
     public int x, y;
+
     public int speed;
     public String direction;
+
     public boolean alive;
+    public boolean collisionOn = false;
 
     protected BufferedImage[] pictures = new BufferedImage[5];
-
     public int spriteCounter = 0;
     public int spriteNum = 1;
-
-    public Rectangle hitbox;
-
-    public boolean collisionOn = false;
 
     protected GamePanel gp;
     protected KeyHandler keyH;
@@ -48,8 +47,8 @@ public class Entity {
         }
     }
 
-    public void draw(Graphics2D g2, int tileSize) {
+    public void draw(Graphics2D g2) {
         BufferedImage image = pictures[spriteNum - 1];
-        g2.drawImage(image, x, y, tileSize, tileSize, null);
+        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }
 }
