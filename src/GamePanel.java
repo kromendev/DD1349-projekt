@@ -26,6 +26,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxScreenCol; // 768 px
     public final int screenHeight = tileSize * maxScreenRow; // 576 px
 
+    public final int maxWorldCol = 18; // max world column for monster spawning
+    public final int worldWidth = tileSize * maxWorldCol; // 864 px
+
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);

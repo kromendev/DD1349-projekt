@@ -40,7 +40,7 @@ public class Knight extends Entity{
      */
     public void setDefaultValues() {
         super.setDefaultValues();
-        x = 500;
+        x = 836;
         y = 384;
         speed = 1;
         direction = "Left";
@@ -104,7 +104,7 @@ public class Knight extends Entity{
     public void draw(Graphics2D g2) {
         super.draw(g2);
 
-        //if closest to player
+        // if closest to player
         if (gp.first[1] == true) {
             String typedPart = word.substring(0, i);
             String untypedPart = word.substring(i);
