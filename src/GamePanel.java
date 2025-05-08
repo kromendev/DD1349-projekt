@@ -32,6 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
+    int killed = 0;
 
     Monster monster = new Monster(this, keyH, GameLogic.getRandomWord(), player, 1);
     Knight knight = new Knight(this, keyH, GameLogic.getRandomWord(), player, 2);
@@ -141,7 +142,7 @@ public class GamePanel extends JPanel implements Runnable {
             // draws map
             tm.draw(g2); // whatever is drawn first will be the bottom layer of the drawn images
 
-            menu.drawPauseButton(g2);
+            menu.drawInPlay(g2);
             
             if (monster.alive) {
                 monster.draw(g2);

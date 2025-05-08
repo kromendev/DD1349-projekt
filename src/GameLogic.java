@@ -26,7 +26,7 @@ public class GameLogic {
     public static void entityRandomSpawn(GamePanel panel) {
         long now = System.currentTimeMillis();
         if (now - timer >= 1500) {
-            if (now - gamestart >= 10000) {
+            if (now - gamestart >= 5000) {
                 if (Math.random() < 0.5 && !panel.monster.alive) {
                     panel.monster.alive = true;
                     panel.monster.word = getRandomWord();
@@ -77,9 +77,11 @@ public class GameLogic {
         gp.knight.alive = false;
         gp.monster.setDefaultValues();
         gp.knight.setDefaultValues();
+        gp.player.x = -gp.tileSize;
         gp.first[0] = false;
         gp.first[1] = false;
         gp.timer = System.currentTimeMillis();
         timer = System.currentTimeMillis();
+        gp.killed = 0;
     }
 }

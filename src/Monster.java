@@ -67,6 +67,7 @@ public class Monster extends Entity{
                     setDefaultValues();
                     alive = false;
                     lives = livesSave;
+                    gp.killed++;
                 } else {
                     i = 0;
                     this.word = GameLogic.getRandomWord();
