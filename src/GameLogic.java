@@ -2,9 +2,10 @@ import java.util.Random;
 
 public class GameLogic {
     private static final Random rand = new Random();
-    private static long lastSpawnTime = System.currentTimeMillis();
+    private static long gamestart = System.currentTimeMillis();
+    private static long timer = System.currentTimeMillis();
 
-    
+    //word bank for the entitys
     private static final String[] words = {
         "sword", "knight", "castle", "shield", "dragon",
         "battle", "armor", "quest", "honor", "lance", 
@@ -14,25 +15,32 @@ public class GameLogic {
         "pencil", "queen", "river", "sun", "tree",
         "umbrella", "violin", "window", "xylophone", "zebra"
     };
+
     // Returns random word from index
     public static String getRandomWord() {
         int index = rand.nextInt(words.length);
         return words[index];
     }
 
+    // Spawns A random entity every 3 seconds
     public static void entityRandomSpawn(GamePanel panel) {
         long now = System.currentTimeMillis();
-        if (now - lastSpawnTime >= 3000) {
-            if (Math.random() < 0.5 && !panel.monster.alive) {
-                panel.monster.alive = true;
-                panel.monster.word = getRandomWord();
-                System.out.println("Monster spawned");
-            } else if (!panel.knight.alive) {
-                panel.knight.alive = true;
-                panel.knight.word = getRandomWord();
-                System.out.println("Knight spawned");
+        if (now - timer >= 1500) {
+            if (now - gamestart >= 10000) {
+                if (Math.random() < 0.5 && !panel.monster.alive) {
+                    panel.monster.alive = true;
+                    panel.monster.word = getRandomWord();
+                } else if (!panel.knight.alive) { 
+                    panel.knight.alive = true;
+                    panel.knight.word = getRandomWord();
+                }
+            } else {
+                if (!panel.monster.alive) {
+                    panel.monster.alive = true;
+                    panel.monster.word = getRandomWord();
+                }
             }
-            lastSpawnTime = now;
+            timer = now;
         }
     }
 
@@ -44,7 +52,9 @@ public class GameLogic {
         boolean[] result = new boolean[2];
         if (distToB <= distToC) {
             result[0] = true;
+            result[1] = false;
         } else {
+            result[0] = false;
             result[1] = true;
         }
         return result;
@@ -70,5 +80,6 @@ public class GameLogic {
         gp.first[0] = false;
         gp.first[1] = false;
         gp.timer = System.currentTimeMillis();
+        timer = System.currentTimeMillis();
     }
 }

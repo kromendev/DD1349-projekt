@@ -10,6 +10,8 @@ import java.awt.Graphics2D;
 public class Knight extends Entity{
     // word that needs to typed to kill monster
     Player player;
+    public int lives;
+    public int livesSave;
 
     /**
      * Creates a monster
@@ -18,10 +20,12 @@ public class Knight extends Entity{
      * @param keyH keyhandler that the monster is associated with.
      * @param word word that player needs to type to eliminate the monster.
      */
-    public Knight(GamePanel gp, KeyHandler keyH, String word, Player player) {
+    public Knight(GamePanel gp, KeyHandler keyH, String word, Player player, int lives) {
         super(gp, keyH);
         this.word = word;
         this.player = player;
+        this.lives = lives;
+        this.livesSave = lives;
 
         setHitbox(18, 12, 24, 35);
 
@@ -57,9 +61,15 @@ public class Knight extends Entity{
                 this.i = 0;
             }
             else if (this.i >= chars.length) {
-                setDefaultValues();
-                alive = false;
-                gp.first[1] = false;
+                lives--;
+                if (lives <= 0) {
+                    setDefaultValues();
+                    alive = false;
+                    lives = livesSave;
+                } else {
+                    i = 0;
+                    this.word = GameLogic.getRandomWord();
+                }
             }
         }
 

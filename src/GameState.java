@@ -4,7 +4,6 @@
 public enum GameState {
     MENU,
     PLAY,
-    SETTINGS,
     CREDITS,
     PAUSE,
     GAMEOVER,

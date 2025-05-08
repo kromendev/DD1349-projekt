@@ -30,8 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     Player player = new Player(this, keyH);
 
-    Monster monster = new Monster(this, keyH, GameLogic.getRandomWord(), player);
-    Knight knight = new Knight(this, keyH, GameLogic.getRandomWord(), player);
+    Monster monster = new Monster(this, keyH, GameLogic.getRandomWord(), player, 1);
+    Knight knight = new Knight(this, keyH, GameLogic.getRandomWord(), player, 2);
 
   
     TileManager tm = new TileManager(this);
