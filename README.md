@@ -1,5 +1,5 @@
-# DD1349-projekt
-Our project is a word typing videogame. It's an endless highscore game where the goal is to survive as long as possible by killing the advancing monsters. To kill them, simply write the word before the monster gets to you.
+# Typing Game
+This project is a word typing videogame. It's an endless highscore game where the goal is to survive as long as possible by killing the advancing monsters. To kill them, simply write the word before the monster gets to you.
 
 ## Features
 - Real-time typing mechanics
