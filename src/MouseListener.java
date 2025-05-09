@@ -3,17 +3,29 @@ import java.awt.event.MouseEvent;
 
 /**
  * This class interprets mouse click input.
+ * Detects button clicks based on screen coordinates and updates game state accordingly.
  * 
  * @author Gustav dyrcz
- * @version 2025-05-07
+ * @version 2025-05-09
  */
 public class MouseListener extends MouseAdapter {
     GamePanel gp;
 
+    /**
+     * Constructs a MouseListener tied to a specific GamePanel.
+     * 
+     * @param gp the GamePanel that this class interprets
+     */
     public MouseListener(GamePanel gp) {
         this.gp = gp;
     }
 
+    /**
+     * Called when the mouse is pressed.
+     * Handles clicks on buttons in different game states.
+     * 
+     * @param e the mouse click
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         //mouse click position
@@ -27,7 +39,6 @@ public class MouseListener extends MouseAdapter {
             int buttonX = 250;
     
             // Start Game button
-          
             if (x >= center && x <= center + buttonX && y >= 200 && y <= 250) {
                 GameState.setGameState(GameState.PLAY);
                 GameLogic.reset(gp);
@@ -44,6 +55,7 @@ public class MouseListener extends MouseAdapter {
                 System.exit(0);
             }
 
+            // Reset high score
             else if (x >= center + 25 && x <= center + 225 && y >= 525 && y <= 555) {
                 GameLogic.resetHighScore();
             }

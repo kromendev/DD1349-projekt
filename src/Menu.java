@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
  * This class Draws the Main menu screen.
  * 
  * @author Gustav dyrcz
- * @version 2025-05-07
+ * @version 2025-05-09
  */
 public class Menu {
     GamePanel gp;

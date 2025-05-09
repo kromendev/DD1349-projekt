@@ -13,12 +13,13 @@ public enum GameState {
     GAMEOVER,
     QUIT;
 
+    // Variable holding current game state
     private static GameState currentState = MENU;
 
     /**
-     * Getter method for current game state.
+     * Returns the current game state.
      * 
-     * @return current game state
+     * @return the current GameState
      */
     public static GameState getGameState() {
         return currentState;
@@ -26,6 +27,8 @@ public enum GameState {
 
     /**
      * Sets the current game state.
+     * 
+     * @param newState the new GameState to apply
      */
     public static void setGameState(GameState newState) {
         currentState = newState;

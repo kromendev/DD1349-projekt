@@ -2,10 +2,14 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 /**
- * This class creates monsters.
+ * This class creates a monster enemy that dies when a word is typed correctly.
+ * Inherits behavior from the Entity superclass.
+ * 
+ * Handles movement, animation, collision, and typing logic.
  * 
  * @author Husein Hassan
- * @version 2025-04-28
+ * @author Gustav Dyrcz
+ * @version 2025-05-09
  */
 public class Monster extends Entity{
     Player player;
@@ -13,11 +17,13 @@ public class Monster extends Entity{
     public int livesSave;
 
     /**
-     * Creates a monster
+     * Constructs a new monster enemy.
      * 
-     * @param gp gamepanel that the monster is associated with.
-     * @param keyH keyhandler that the monster is associated with.
-     * @param word word that player needs to type to eliminate the monster.
+     * @param gp the game panel instance
+     * @param keyH the keyboard input handler
+     * @param word the word required to defeat the knight
+     * @param player the player instance
+     * @param lives how many words the knight must survive before dying
      */
     public Monster(GamePanel gp, KeyHandler keyH, String word, Player player, int lives) {
         super(gp, keyH);
@@ -31,15 +37,15 @@ public class Monster extends Entity{
 
         setDefaultValues();
         
-        // Getting monster spirits
+        // Loads monster walking animation
         loadSprites("/Sprites/TypingMonsterLeft1.png", "/Sprites/TypingMonsterLeft2.png");
     }
 
     /**
-     * Sets default position and speed for Monster
+     * Sets default position and speed for monster
      */
     public void setDefaultValues() {
-        super.setDefaultValues();
+        i = 0;
         x = 836;
         y = 384;
         speed = 1;
@@ -47,7 +53,8 @@ public class Monster extends Entity{
     }
 
     /**
-     * Updates state of a monster object
+     * Updates state of monster
+     * Handles movement, collision, and typing logic.
      */
     public void update() {
         // if closest to player
@@ -93,7 +100,7 @@ public class Monster extends Entity{
                 }
                 else if (spriteNum == 2) {
                     spriteNum = 1;
-                    gp.playSFX(3);
+                    gp.playSFX(3); // play monster walking sound
                 }
                 spriteCounter = 0;
             }
@@ -101,9 +108,9 @@ public class Monster extends Entity{
     }
 
     /**
-     * Draws monster.
+     * Draws the monster and its typing word on screen.
      * 
-     * @param g2 graphic to draw.
+     * @param g2 graphic to draw
      */
     public void draw(Graphics2D g2) {
         super.draw(g2);

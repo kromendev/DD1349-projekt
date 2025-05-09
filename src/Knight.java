@@ -2,23 +2,28 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 /**
- * This class creates knight monsters.
+ * This class creates a knight enemy that dies when a word is typed correctly.
+ * Inherits behavior from the Entity superclass.
  * 
+ * Handles movement, animation, collision, and typing logic.
+ * 
+ * @author Husein Hassan
  * @author Gustav Dyrcz
- * @version 2025-05-08
+ * @version 2025-05-09
  */
 public class Knight extends Entity{
-    // word that needs to typed to kill monster
     Player player;
     public int lives;
     public int livesSave;
 
     /**
-     * Creates a monster
+     * Constructs a new knight enemy.
      * 
-     * @param gp gamepanel that the monster is associated with.
-     * @param keyH keyhandler that the monster is associated with.
-     * @param word word that player needs to type to eliminate the monster.
+     * @param gp the game panel instance
+     * @param keyH the keyboard input handler
+     * @param word the word required to defeat the knight
+     * @param player the player instance
+     * @param lives how many words the knight must survive before dying
      */
     public Knight(GamePanel gp, KeyHandler keyH, String word, Player player, int lives) {
         super(gp, keyH);
@@ -28,18 +33,17 @@ public class Knight extends Entity{
         this.livesSave = lives;
 
         setHitbox(18, 12, 24, 35);
-
         setDefaultValues();
 
-        //Getter for knight sprites
+        // Loads knight walking animation
         loadSprites("/Sprites/Knight(1).png", "/Sprites/Knight(2).png", "/Sprites/Knight(3).png", "/Sprites/Knight(4).png");
     }
 
     /**
-     * Sets default position and speed for Monster
+     * Sets default position and speed for knight
      */
     public void setDefaultValues() {
-        super.setDefaultValues();
+        i = 0;
         x = 836;
         y = 384;
         speed = 1;
@@ -47,7 +51,8 @@ public class Knight extends Entity{
     }
 
     /**
-     * Updates state of a monster object
+     * Updates state of knight
+     * Handles movement, collision, and typing logic.
      */
     public void update() {
         //if closest to player
@@ -93,7 +98,7 @@ public class Knight extends Entity{
                 }
                 else if (spriteNum == 2) {
                     spriteNum = 1;
-                    gp.playSFX(2);
+                    gp.playSFX(2); // play knight walking sound
                 }
                 spriteCounter = 0;
             }
@@ -101,7 +106,7 @@ public class Knight extends Entity{
     }
 
     /**
-     * Draws monster
+     * Draws the knight and its typing word on screen.
      * 
      * @param g2 graphic to draw
      */

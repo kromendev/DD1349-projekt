@@ -1,17 +1,21 @@
 import java.awt.Graphics2D;
 
 /**
- * This class creates the player. Subclass of entity.
+ * This class creates the player
+ * Inherits behavior from the Entity superclass.
+ * 
+ * Handles movement, animation, and typing logic.
  * 
  * @author Husein Hassan
- * @version 2025-05-04
+ * @author Gustav Dyrcz
+ * @version 2025-05-09
  */
 public class Player extends Entity{
     // helper field
     private boolean aniCycle = false; // checks if an animation cycle has been triggered
 
     /**
-     * Creates the player.
+     * Constructs the player.
      * 
      * @param gp gamepanel that the player is associated with.
      * @param keyH keyhandler that the player is associated with.

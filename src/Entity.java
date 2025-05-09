@@ -10,26 +10,32 @@ import javax.imageio.ImageIO;
  * 
  * @author Husein Hassan
  * @author Gustav Dyrcz
- * @version 2025-05-08
+ * @version 2025-05-09
  */
 public class Entity {
-    public Rectangle hitbox;
-    public int x, y;
-    int i = 0;
-
-    public int speed;
-    public String direction;
-
-    public boolean alive;
-    public boolean collisionOn = false;
-
-    protected BufferedImage[] pictures = new BufferedImage[5];
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
 
     protected GamePanel gp;
     protected KeyHandler keyH;
+
+    // Entity hitbox and position
+    public Rectangle hitbox;
+    public int x, y;
+
     public String word;
+    int i = 0; // Variable that counts how far a word is typed 
+
+    // Entity going direction and speed
+    public int speed;
+    public String direction;
+
+    // Variables used for gamelogic
+    public boolean alive;
+    public boolean collisionOn = false;
+
+    // Variables used for animation
+    protected BufferedImage[] pictures = new BufferedImage[5];
+    public int spriteCounter = 0;
+    public int spriteNum = 1;
 
     /**
      * Constructor for entities. Specifies the gamepanel and keyhandler.
@@ -80,10 +86,4 @@ public class Entity {
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }
 
-    /**
-     * Sets the default values of the entity.
-     */
-    public void setDefaultValues() {
-       i = 0;
-    }
 }

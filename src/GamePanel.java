@@ -8,20 +8,22 @@ import java.io.File;
 import javax.swing.JPanel;
 
 /**
- * This class draws and refreshes the gamepanel with all the game info.
+ * This class draws and refreshes the game with all the necessary info.
+ * It handles rendering, game loop execution, and UI display.
+ * 
+ * It implements Runnable to support continuous updates via a thread.
  * 
  * @author Husein Hassan
  * @author Gustav dyrcz
- * @version 2025-05-08
+ * @version 2025-05-09
  */
 public class GamePanel extends JPanel implements Runnable {
     
-    // SCREEN SETTINGS
+    // SCREEN SETTINGS (4:3 game window)
     final int originalTileSize = 16; // 16x16 Tile, so the map, characters and everything will be built through these 16x16 tiles.
     final int scale = 3; // scale up tiles to look normal on bigger resolutions.
-
     public final int tileSize = originalTileSize * scale; // 48x48 is the true tilesize.
-    // create 4:3 game window
+   
     public final int maxScreenCol = 16; // max screen size column
     public final int maxScreenRow = 12; // max screen size row
     public final int screenWidth = tileSize * maxScreenCol; // 768 px
@@ -29,37 +31,34 @@ public class GamePanel extends JPanel implements Runnable {
 
     public final int maxWorldCol = 18; // max world column for monster spawning
 
-    KeyHandler keyH = new KeyHandler();
+    // GAME LOOP SETTINGS
+    final int fps = 60;
     Thread gameThread;
-    Player player = new Player(this, keyH);
-    Sound music= new Sound();
-    Sound sfx = new Sound();
+    long timer = System.currentTimeMillis(); //needed for knight to spawn in later
 
+    // GAME LOGIC
+    KeyHandler keyH = new KeyHandler();
+    Collision collision = new Collision(this);
+    
+    // GAME OBJECTS
+    Player player = new Player(this, keyH);
+    Monster monster = new Monster(this, keyH, GameLogic.getRandomWord(), player, 1);
+    Knight knight = new Knight(this, keyH, GameLogic.getRandomWord(), player, 2);
+    
+    // GAME STATE
+    boolean[] first = {false, false}; //Boolean to check witch entity is closest
+    int killed = 0;
     private boolean musicStarted = false;
     private boolean gameOver = false;
 
-    int killed = 0;
-
-    Monster monster = new Monster(this, keyH, GameLogic.getRandomWord(), player, 1);
-    Knight knight = new Knight(this, keyH, GameLogic.getRandomWord(), player, 2);
-
-  
+    // GRAPHICS & UI
+    Font gameFont;
     TileManager tm = new TileManager(this);
     Menu menu = new Menu(this);
-    public Collision collision = new Collision(this);
-
-    // Font
-    Font gameFont;
-
-    // FPS
-    final int fps = 60;
-
-    //needed for knight to spawn in later
-    long timer = System.currentTimeMillis();
-
-    //Boolean to check witch entity is first (monster or knight)
-    boolean[] first = {false, false}; 
-
+    
+    // AUDIO
+    Sound music= new Sound();
+    Sound sfx = new Sound();
 
     /**
      * Creates a game panel.
@@ -118,7 +117,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     * Updates game information
+     * Updates game information with help of GameLogic class.
      */
     public void update() {
         monster.update();
