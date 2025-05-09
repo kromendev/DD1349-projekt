@@ -80,7 +80,7 @@ public class GameLogic {
     }
 
     /**
-     * Spawns a monster or knight on a timer.
+     * Spawns a monster or knight on a timer (1.5 seconds).
      * Knight only starts spawning 5 seconds after the game started.
      * 
      * @param panel the GamePanel where entities are spawned
@@ -159,6 +159,7 @@ public class GameLogic {
         gp.first[0] = false;
         gp.first[1] = false;
         gp.timer = System.currentTimeMillis();
+        gamestart = System.currentTimeMillis();
         timer = System.currentTimeMillis();
         gp.killed = 0;
     }
