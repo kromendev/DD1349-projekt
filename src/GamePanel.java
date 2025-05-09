@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Getting the custom font from the /src folder
         try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Data/PressStart2P-vaV7.ttf")).deriveFont(20f);
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/Data/PressStart2P-vaV7.ttf")).deriveFont(20f);
         } catch (Exception e) {
             gameFont = new Font("Arial", Font.BOLD, 20); // fallback
         }

@@ -12,7 +12,7 @@ public class GameLogic {
     private static long gamestart = System.currentTimeMillis();
     private static long timer = System.currentTimeMillis();
     
-    private static final String HIGH_SCORE_FILE = "Data/highscore.txt";
+    private static final String HIGH_SCORE_FILE = "src/Data/highscore.txt";
     private static int highScore;
 
     // word index for the entitys
